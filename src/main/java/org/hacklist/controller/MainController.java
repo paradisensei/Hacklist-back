@@ -24,8 +24,8 @@ public class MainController {
 
     @RequestMapping("/hack/list")
     @ResponseBody
-    public List<Hack> getHackList() {
-        return hackService.getAll();
+    public ApiResponse<List<Hack>> getHackList() {
+        return new ApiResponse<>(hackService.getAll());
     }
 
 }
