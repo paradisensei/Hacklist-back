@@ -1,36 +1,35 @@
-package org.hacklist.model;
+package org.hacklist.util.forms;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.util.Date;
+import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.validation.constraints.Size;
 
 /**
- * @author Aidar Shaifutdinov.
+ * @author Neil Alishev
  */
-@Entity
-@Table(name = "hack")
-@SequenceGenerator(name = "hack_gen",
-        sequenceName = "hack_seq", allocationSize = 1)
-public class Hack {
+public class HackForm {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hack_gen")
+    private static final String BLANK_MESSAGE = "This field is mandatory";
+
     private Long id;
 
-    @NotNull
+    @NotBlank(message = BLANK_MESSAGE)
+    @Size(min = 1, max = 30, message = "From 1 to 30 symbols")
     private String title;
 
-    @NotNull
+    @NotBlank(message = BLANK_MESSAGE)
     private String city;
 
-    @NotNull
+    @NotBlank(message = BLANK_MESSAGE)
     private String address;
 
-    @NotNull
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date date;
+    @NotBlank(message = BLANK_MESSAGE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    private String date;
 
-    @NotNull
+    @NotBlank(message = BLANK_MESSAGE)
+    @Size(min = 1, max = 300, message = "From 1 to 300 symbols")
     private String description;
 
     public Long getId() {
@@ -65,11 +64,11 @@ public class Hack {
         this.address = address;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
