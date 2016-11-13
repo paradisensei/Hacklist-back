@@ -24,7 +24,7 @@ public class HackController {
         this.hackService = hackService;
     }
 
-    @RequestMapping("/hack/list")
+    @RequestMapping("")
     @ResponseBody
     public ApiResponse<List<Hack>> getHackList() {
         return new ApiResponse<>(hackService.getAll());
