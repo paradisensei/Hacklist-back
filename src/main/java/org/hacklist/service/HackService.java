@@ -11,6 +11,8 @@ public interface HackService {
 
     List<Hack> getAll();
 
+    List<Hack> getByPage(int page);
+
     Hack getOne(Long id);
 
     Hack add(Hack hack);
