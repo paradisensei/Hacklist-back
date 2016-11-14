@@ -1,7 +1,6 @@
 package org.hacklist.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
@@ -9,28 +8,22 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "hack")
-@SequenceGenerator(name = "hack_gen",
-        sequenceName = "hack_seq", allocationSize = 1)
+@SequenceGenerator(name = "hack_gen", sequenceName = "hack_seq", allocationSize = 1)
 public class Hack {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hack_gen")
     private Long id;
 
-    @NotNull
     private String title;
 
-    @NotNull
     private String city;
 
-    @NotNull
     private String address;
 
-    @NotNull
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
-    @NotNull
     private String description;
 
     public Long getId() {
