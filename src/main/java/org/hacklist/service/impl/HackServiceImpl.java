@@ -4,8 +4,6 @@ import org.hacklist.model.Hack;
 import org.hacklist.repository.HackRepository;
 import org.hacklist.service.HackService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,8 +16,6 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class HackServiceImpl implements HackService {
 
-    private static final int PAGE_SIZE = 15;
-
     private final HackRepository hackRepository;
 
     @Autowired
@@ -30,13 +26,6 @@ public class HackServiceImpl implements HackService {
     @Override
     public List<Hack> getAll() {
         return hackRepository.findAll();
-    }
-
-    @Override
-    public List<Hack> getByPage(int pageNumber) {
-        PageRequest pageRequest = new PageRequest(pageNumber - 1, PAGE_SIZE, Sort.Direction.ASC, "date");
-
-        return hackRepository.findAll(pageRequest).getContent();
     }
 
     @Override
