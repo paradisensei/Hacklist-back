@@ -1,0 +1,4 @@
+gitHub.clientId=
+gitHub.secret=
+
+gitHub.tokenUrl=https://github.com/login/oauth/access_token
