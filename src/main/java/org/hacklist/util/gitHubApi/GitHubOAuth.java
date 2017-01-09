@@ -1,4 +1,4 @@
-package org.hacklist.util.oauth;
+package org.hacklist.util.gitHubApi;
 
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.PropertySource;
@@ -29,6 +29,10 @@ public class GitHubOAuth implements EnvironmentAware {
 
     public String tokenUrl() {
         return env.getProperty("gitHub.tokenUrl");
+    }
+
+    public String userUrl() {
+        return env.getProperty("gitHub.userUrl");
     }
 
 }

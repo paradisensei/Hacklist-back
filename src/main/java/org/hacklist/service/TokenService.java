@@ -2,14 +2,13 @@ package org.hacklist.service;
 
 import org.hacklist.model.Token;
 import org.hacklist.model.User;
+import org.hacklist.model.enums.TokenType;
 
 /**
  * @author Aidar Shaifutdinov.
  */
-public interface GitHubService {
+public interface TokenService {
 
-    Token getToken(String code);
-
-    User getUser(Token token);
+    void add(Token token, User user, TokenType type);
 
 }

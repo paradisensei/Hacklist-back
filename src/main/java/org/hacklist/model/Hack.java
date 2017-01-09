@@ -8,7 +8,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "hack")
-@SequenceGenerator(name = "hack_gen", sequenceName = "hack_seq", allocationSize = 1)
+@SequenceGenerator(name = "hack_gen", sequenceName = "hack_seq")
 public class Hack {
 
     @Id
