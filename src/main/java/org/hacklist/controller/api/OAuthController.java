@@ -6,6 +6,7 @@ import org.hacklist.model.enums.TokenType;
 import org.hacklist.service.GitHubService;
 import org.hacklist.service.TokenService;
 import org.hacklist.service.UserService;
+import org.hacklist.util.gitHubApi.GitHubUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,11 +33,14 @@ public class OAuthController {
 
     @RequestMapping("/gitHub")
     public void gitHubCallback(@RequestParam("code") String code,
-                               @RequestParam("state") String state) {
+                               @RequestParam("state") String clientToken) {
         Token token = gitHubService.getToken(code);
-        User user = gitHubService.getUser(token);
-        user = userService.add(user);
-        tokenService.add(token, user, TokenType.GITHUB);
+        GitHubUser gitHubUser = gitHubService.getUser(token);
+        System.out.println(token);
+        System.out.println(gitHubUser);
+        //TODO check if user already exists in the db
+        User user = userService.add(gitHubUser, clientToken);
+        tokenService.add(token, TokenType.GITHUB, gitHubUser, user);
     }
 
 }

@@ -20,6 +20,9 @@ public class Token {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "token_gen")
     private Long id;
 
+    @Column(name = "social_id")
+    private Long socialId;
+
     @Column(name = "access_token")
     @JsonProperty("access_token")
     private String accessToken;
@@ -47,6 +50,14 @@ public class Token {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getSocialId() {
+        return socialId;
+    }
+
+    public void setSocialId(Long socialId) {
+        this.socialId = socialId;
     }
 
     public String getAccessToken() {
@@ -101,6 +112,7 @@ public class Token {
     public String toString() {
         return "Token{" +
                 "id=" + id +
+                ", socialId=" + socialId +
                 ", accessToken='" + accessToken + '\'' +
                 ", expiresIn=" + expiresIn +
                 ", date=" + date +

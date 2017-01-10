@@ -8,6 +8,7 @@
     <changeSet id="0" author="paradisensei">
         <createTable tableName="token">
             <column name="id" type="int8"/>
+            <column name="social_id" type="int8"/>
             <column name="access_token" type="varchar(100)"/>
             <column name="expires_in" type="int"/>
             <column name="birth_date" type="timestamp"/>

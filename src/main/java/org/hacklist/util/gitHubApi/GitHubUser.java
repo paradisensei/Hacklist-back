@@ -1,34 +1,14 @@
-package org.hacklist.model;
+package org.hacklist.util.gitHubApi;
 
-import org.hacklist.util.gitHubApi.GitHubUser;
-
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * @author Aidar Shaifutdinov.
  */
-@Entity
-@Table(name = "users")
-@SequenceGenerator(name = "users_gen", sequenceName = "users_seq")
-public class User {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class GitHubUser {
 
-    public User() {
-    }
-
-    public User(GitHubUser gitHubUser) {
-        name = gitHubUser.getName();
-        email = gitHubUser.getEmail();
-        company = gitHubUser.getCompany();
-        location = gitHubUser.getLocation();
-        bio = gitHubUser.getBio();
-    }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_gen")
     private Long id;
-
-    @Column(name = "client_token")
-    private String clientToken;
 
     private String name;
 
@@ -46,14 +26,6 @@ public class User {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getClientToken() {
-        return clientToken;
-    }
-
-    public void setClientToken(String clientToken) {
-        this.clientToken = clientToken;
     }
 
     public String getName() {
@@ -94,6 +66,18 @@ public class User {
 
     public void setBio(String bio) {
         this.bio = bio;
+    }
+
+    @Override
+    public String toString() {
+        return "GitHubUser{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", company='" + company + '\'' +
+                ", location='" + location + '\'' +
+                ", bio='" + bio + '\'' +
+                '}';
     }
 
 }

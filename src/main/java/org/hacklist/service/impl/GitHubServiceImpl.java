@@ -1,9 +1,9 @@
 package org.hacklist.service.impl;
 
 import org.hacklist.model.Token;
-import org.hacklist.model.User;
 import org.hacklist.service.GitHubService;
 import org.hacklist.util.gitHubApi.GitHubOAuth;
+import org.hacklist.util.gitHubApi.GitHubUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
@@ -36,9 +36,9 @@ public class GitHubServiceImpl implements GitHubService {
     }
 
     @Override
-    public User getUser(Token token) {
+    public GitHubUser getUser(Token token) {
         String userUrl = gitHubOAuth.userUrl() + token.getAccessToken();
-        return restTemplate.getForObject(userUrl, User.class);
+        return restTemplate.getForObject(userUrl, GitHubUser.class);
     }
 
 }
