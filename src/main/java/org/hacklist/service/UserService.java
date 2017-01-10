@@ -10,4 +10,6 @@ public interface UserService {
 
     User add(GitHubUser user, String clientToken);
 
+    void update(User user, String clientToken);
+
 }

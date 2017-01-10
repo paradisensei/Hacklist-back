@@ -34,13 +34,16 @@ public class OAuthController {
     @RequestMapping("/gitHub")
     public void gitHubCallback(@RequestParam("code") String code,
                                @RequestParam("state") String clientToken) {
-        Token token = gitHubService.getToken(code);
-        GitHubUser gitHubUser = gitHubService.getUser(token);
-        System.out.println(token);
-        System.out.println(gitHubUser);
-        //TODO check if user already exists in the db
-        User user = userService.add(gitHubUser, clientToken);
-        tokenService.add(token, TokenType.GITHUB, gitHubUser, user);
+        Token newToken = gitHubService.getToken(code);
+        GitHubUser gitHubUser = gitHubService.getUser(newToken);
+        Token oldToken = tokenService.get(gitHubUser.getId(), TokenType.GITHUB);
+        if (oldToken == null) {
+            User user = userService.add(gitHubUser, clientToken);
+            tokenService.add(newToken, TokenType.GITHUB, gitHubUser, user);
+        } else {
+            userService.update(oldToken.getUser(), clientToken);
+            tokenService.update(oldToken, newToken);
+        }
     }
 
 }

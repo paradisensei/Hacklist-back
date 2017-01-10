@@ -13,4 +13,8 @@ public interface TokenService {
     void add(Token token, TokenType type,
              GitHubUser gitHubUser, User user);
 
+    Token get(Long socialId, TokenType type);
+
+    void update(Token oldToken, Token newToken);
+
 }

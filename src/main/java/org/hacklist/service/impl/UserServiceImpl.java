@@ -29,4 +29,10 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
+    @Override
+    public void update(User user, String clientToken) {
+        user.setClientToken(clientToken);
+        userRepository.save(user);
+    }
+
 }
