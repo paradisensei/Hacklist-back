@@ -6,11 +6,15 @@ import org.hacklist.model.enums.TokenType;
 import org.hacklist.service.GitHubService;
 import org.hacklist.service.TokenService;
 import org.hacklist.service.UserService;
+import org.hacklist.service.VkService;
 import org.hacklist.util.gitHubApi.GitHubUser;
+import org.hacklist.util.vkApi.VkUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Aidar Shaifutdinov.
@@ -20,13 +24,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class OAuthController {
 
     private final GitHubService gitHubService;
+    private final VkService vkService;
     private final UserService userService;
     private final TokenService tokenService;
 
     @Autowired
-    public OAuthController(GitHubService gitHubService, UserService userService,
+    public OAuthController(GitHubService gitHubService,
+                           VkService vkService, UserService userService,
                            TokenService tokenService) {
         this.gitHubService = gitHubService;
+        this.vkService = vkService;
         this.userService = userService;
         this.tokenService = tokenService;
     }
@@ -46,4 +53,10 @@ public class OAuthController {
         }
     }
 
+    @RequestMapping("/vk")
+    public void vkCallback(@RequestParam("code") String code,
+                           @RequestParam("state") String clientToken) {
+        Token newToken = vkService.getToken(code);
+        VkUser vkUser = vkService.getUser(newToken);
+    }
 }
