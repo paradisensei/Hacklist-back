@@ -13,6 +13,8 @@ public interface UserService {
 
     User add(VkUser vkUser, String clientToken);
 
+    User getOneByClientToken(String clientToken);
+
     void update(User user, String clientToken);
 
 }

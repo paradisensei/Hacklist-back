@@ -38,6 +38,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getOneByClientToken(String clientToken) {
+        User user = userRepository.findOneByClientToken(clientToken);
+        return user;
+    }
+
+    @Override
     public void update(User user, String clientToken) {
         user.setClientToken(clientToken);
         userRepository.save(user);

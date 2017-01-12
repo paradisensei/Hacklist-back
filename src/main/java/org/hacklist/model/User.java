@@ -12,6 +12,18 @@ import javax.persistence.*;
 @Table(name = "users")
 @SequenceGenerator(name = "users_gen", sequenceName = "users_seq")
 public class User {
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", clientToken='" + clientToken + '\'' +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", company='" + company + '\'' +
+                ", location='" + location + '\'' +
+                ", bio='" + bio + '\'' +
+                '}';
+    }
 
     public User() {
     }
