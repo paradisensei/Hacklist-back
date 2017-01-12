@@ -2,3 +2,11 @@ gitHub.clientId=
 gitHub.secret=
 
 gitHub.tokenUrl=https://github.com/login/oauth/access_token
+gitHub.userUrl=https://api.github.com/user?access_token=
+
+vk.clientId=
+vk.secret=
+
+vk.tokenUrl=https://oauth.vk.com/access_token
+vk.userUrl=https://api.vk.com/method/users.get?v=5.60&fields=city&access_token=
+vk.redirectUri=http://your_ip_address:8080/api/oauth/vk

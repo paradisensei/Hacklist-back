@@ -6,6 +6,7 @@ import org.hacklist.model.enums.TokenType;
 import org.hacklist.repository.TokenRepository;
 import org.hacklist.service.TokenService;
 import org.hacklist.util.gitHubApi.GitHubUser;
+import org.hacklist.util.vkApi.VkUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,11 +30,21 @@ public class TokenServiceImpl implements TokenService {
     @Override
     public void add(Token token, TokenType type,
                     GitHubUser gitHubUser, User user) {
-        if (type == TokenType.GITHUB) {
-            // 30 days in seconds
-            token.setExpiresIn(86400 * 30);
-        }
+        // 30 days in seconds
+        token.setExpiresIn(86400 * 30);
         token.setSocialId(gitHubUser.getId());
+        token.setDate(new Date());
+        token.setActual(true);
+        token.setType(type);
+        token.setUser(user);
+        tokenRepository.save(token);
+    }
+
+    @Override
+    public void add(Token token, TokenType type, VkUser vkUser, User user) {
+        // 24 hours in seconds
+        token.setExpiresIn(86400);
+        token.setSocialId(vkUser.getId());
         token.setDate(new Date());
         token.setActual(true);
         token.setType(type);
