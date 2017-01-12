@@ -1,6 +1,7 @@
 package org.hacklist.model;
 
 import org.hacklist.util.gitHubApi.GitHubUser;
+import org.hacklist.util.vkApi.VkUser;
 
 import javax.persistence.*;
 
@@ -21,6 +22,11 @@ public class User {
         company = gitHubUser.getCompany();
         location = gitHubUser.getLocation();
         bio = gitHubUser.getBio();
+    }
+
+    public User(VkUser vkUser) {
+        name = vkUser.getName();
+        location = vkUser.getCity().getTitle();
     }
 
     @Id

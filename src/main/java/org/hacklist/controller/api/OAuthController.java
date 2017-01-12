@@ -58,5 +58,14 @@ public class OAuthController {
                            @RequestParam("state") String clientToken) {
         Token newToken = vkService.getToken(code);
         VkUser vkUser = vkService.getUser(newToken);
+        Token oldToken = tokenService.get(vkUser.getId(), TokenType.VK);
+
+        if(oldToken == null) {
+            User user = userService.add(vkUser, clientToken);
+            tokenService.add(newToken, TokenType.VK, vkUser, user);
+        } else {
+            userService.update(oldToken.getUser(), clientToken);
+            tokenService.update(oldToken, newToken);
+        }
     }
 }
