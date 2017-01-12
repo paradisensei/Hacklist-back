@@ -5,7 +5,7 @@ import org.hacklist.model.Hack;
 import org.hacklist.service.HackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -25,7 +25,9 @@ public class HackController {
     }
 
     @RequestMapping("")
-    public ApiResponse<List<Hack>> getHackList() {
+    public ApiResponse<List<Hack>> getHackList(@RequestParam("token") String token) {
+        System.out.println(token);
         return new ApiResponse<>(hackService.getAll());
     }
+
 }
