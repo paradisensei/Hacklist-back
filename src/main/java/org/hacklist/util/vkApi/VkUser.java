@@ -13,7 +13,7 @@ public class VkUser {
     @JsonProperty("first_name")
     private String name;
 
-    private String city;
+    private VkUserCity city;
 
     public Long getId() {
         return id;
@@ -31,11 +31,11 @@ public class VkUser {
         this.name = name;
     }
 
-    public String getCity() {
+    public VkUserCity getCity() {
         return city;
     }
 
-    public void setCity(String city) {
+    public void setCity(VkUserCity city) {
         this.city = city;
     }
 }

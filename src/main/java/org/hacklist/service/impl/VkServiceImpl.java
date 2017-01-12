@@ -4,11 +4,15 @@ import org.hacklist.model.Token;
 import org.hacklist.service.VkService;
 import org.hacklist.util.vkApi.VkOAuth;
 import org.hacklist.util.vkApi.VkUser;
+import org.hacklist.util.vkApi.VkUserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.List;
 
 /**
  * @author Neil Alishev
@@ -39,7 +43,6 @@ public class VkServiceImpl implements VkService {
     @Override
     public VkUser getUser(Token token) {
         String userUrl = vkOAuth.userUrl() + token.getAccessToken();
-//        Не получаю юзера. Access denied: no access to call this method
-        return restTemplate.getForObject(userUrl, VkUser.class);
+        return restTemplate.getForObject(userUrl, VkUserResponse.class).getResponse().get(0);
     }
 }
