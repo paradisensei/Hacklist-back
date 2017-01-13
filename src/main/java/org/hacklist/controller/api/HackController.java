@@ -1,17 +1,16 @@
 package org.hacklist.controller.api;
 
+import com.jayway.awaitility.core.ConditionTimeoutException;
 import org.hacklist.controller.ApiResponse;
-import org.hacklist.model.Hack;
 import org.hacklist.service.HackService;
 import org.hacklist.service.UserService;
+import org.hacklist.util.misc.ErrorObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import static com.jayway.awaitility.Awaitility.await;
+import static com.jayway.awaitility.pollinterval.IterativePollInterval.iterative;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 /**
@@ -20,6 +19,8 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 @RestController(value = "hackApiController")
 @RequestMapping("/api/hacks")
 public class HackController {
+
+    private final static int SECONDS_TO_WAIT = 10;
 
     private final HackService hackService;
     private final UserService userService;
@@ -31,22 +32,26 @@ public class HackController {
     }
 
     @RequestMapping("")
-    public ApiResponse<List<Hack>> getHackList(@RequestParam("token") String token) {
+    public ApiResponse<?> getHackList(@RequestParam("token") String token)
+            throws ConditionTimeoutException {
         String actualToken = token.replace("\"", "");
 
-        await().atMost(5, SECONDS).until(() -> userCreated(actualToken));
+        await()
+                .with().pollInterval(iterative(duration -> duration.plus(1000)))
+                .atMost(SECONDS_TO_WAIT, SECONDS)
+                .until(() -> userCreated(actualToken));
 
-        if (userCreated(actualToken)) {
-            System.out.println("USER" + userService.getOneByClientToken(token.replace("\"", "")));
-            return new ApiResponse<>(hackService.getAll());
-        } else {
-            // TODO: respond with a loading error...
-            return null;
-        }
+        System.out.println("USER" + userService.getOneByClientToken(token.replace("\"", "")));
+        return new ApiResponse<>(hackService.getAll());
     }
 
     private boolean userCreated(String token) {
         return userService.getOneByClientToken(token) != null;
     }
 
+    @ExceptionHandler(ConditionTimeoutException.class)
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public ErrorObject handleException(ConditionTimeoutException e) {
+        return new ErrorObject("10 seconds are out!");
+    }
 }
