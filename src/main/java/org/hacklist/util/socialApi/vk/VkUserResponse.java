@@ -1,4 +1,4 @@
-package org.hacklist.util.vkApi;
+package org.hacklist.util.socialApi.vk;
 
 import java.util.List;
 

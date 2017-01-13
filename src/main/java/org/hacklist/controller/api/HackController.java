@@ -26,7 +26,6 @@ public class HackController {
 
     @RequestMapping("")
     public ApiResponse<List<Hack>> getHackList(@RequestParam("token") String token) {
-        System.out.println(token);
         return new ApiResponse<>(hackService.getAll());
     }
 

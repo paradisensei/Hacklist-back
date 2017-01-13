@@ -2,17 +2,12 @@ package org.hacklist.service.impl;
 
 import org.hacklist.model.Token;
 import org.hacklist.service.VkService;
-import org.hacklist.util.vkApi.VkOAuth;
-import org.hacklist.util.vkApi.VkUser;
-import org.hacklist.util.vkApi.VkUserResponse;
+import org.hacklist.util.socialApi.SocialUser;
+import org.hacklist.util.socialApi.vk.VkOAuth;
+import org.hacklist.util.socialApi.vk.VkUserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.List;
 
 /**
  * @author Neil Alishev
@@ -20,8 +15,8 @@ import java.util.List;
 @Service
 public class VkServiceImpl implements VkService {
 
-    private final RestTemplate restTemplate;
     private final VkOAuth vkOAuth;
+    private final RestTemplate restTemplate;
 
     @Autowired
     public VkServiceImpl(RestTemplate restTemplate, VkOAuth vkOAuth) {
@@ -31,17 +26,12 @@ public class VkServiceImpl implements VkService {
 
     @Override
     public Token getToken(String code) {
-        MultiValueMap<String, Object> params = new LinkedMultiValueMap<>();
-        params.add("client_id", vkOAuth.clientId());
-        params.add("client_secret", vkOAuth.secret());
-        params.add("redirect_uri", vkOAuth.redirectUri());
-        params.add("code", code);
-        String tokenUrl = vkOAuth.tokenUrl();
-        return restTemplate.postForObject(tokenUrl, params, Token.class);
+        String tokenUrl = vkOAuth.tokenUrl() + code;
+        return restTemplate.getForObject(tokenUrl, Token.class);
     }
 
     @Override
-    public VkUser getUser(Token token) {
+    public SocialUser getUser(Token token) {
         String userUrl = vkOAuth.userUrl() + token.getAccessToken();
         return restTemplate.getForObject(userUrl, VkUserResponse.class).getResponse().get(0);
     }

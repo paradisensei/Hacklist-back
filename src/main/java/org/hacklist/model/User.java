@@ -1,7 +1,6 @@
 package org.hacklist.model;
 
-import org.hacklist.util.gitHubApi.GitHubUser;
-import org.hacklist.util.vkApi.VkUser;
+import org.hacklist.util.socialApi.SocialUser;
 
 import javax.persistence.*;
 
@@ -16,17 +15,12 @@ public class User {
     public User() {
     }
 
-    public User(GitHubUser gitHubUser) {
-        name = gitHubUser.getName();
-        email = gitHubUser.getEmail();
-        company = gitHubUser.getCompany();
-        location = gitHubUser.getLocation();
-        bio = gitHubUser.getBio();
-    }
-
-    public User(VkUser vkUser) {
-        name = vkUser.getName();
-        location = vkUser.getCity().getTitle();
+    public User(SocialUser socialUser) {
+        name = socialUser.getName();
+        email = socialUser.getEmail();
+        company = socialUser.getCompany();
+        location = socialUser.getLocation();
+        bio = socialUser.getBio();
     }
 
     @Id

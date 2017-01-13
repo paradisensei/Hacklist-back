@@ -7,14 +7,11 @@ import org.hacklist.service.GitHubService;
 import org.hacklist.service.TokenService;
 import org.hacklist.service.UserService;
 import org.hacklist.service.VkService;
-import org.hacklist.util.gitHubApi.GitHubUser;
-import org.hacklist.util.vkApi.VkUser;
+import org.hacklist.util.socialApi.SocialUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Aidar Shaifutdinov.
@@ -29,9 +26,8 @@ public class OAuthController {
     private final TokenService tokenService;
 
     @Autowired
-    public OAuthController(GitHubService gitHubService,
-                           VkService vkService, UserService userService,
-                           TokenService tokenService) {
+    public OAuthController(GitHubService gitHubService, VkService vkService,
+                           UserService userService, TokenService tokenService) {
         this.gitHubService = gitHubService;
         this.vkService = vkService;
         this.userService = userService;
@@ -41,31 +37,29 @@ public class OAuthController {
     @RequestMapping("/gitHub")
     public void gitHubCallback(@RequestParam("code") String code,
                                @RequestParam("state") String clientToken) {
-        Token newToken = gitHubService.getToken(code);
-        GitHubUser gitHubUser = gitHubService.getUser(newToken);
-        Token oldToken = tokenService.get(gitHubUser.getId(), TokenType.GITHUB);
-        if (oldToken == null) {
-            User user = userService.add(gitHubUser, clientToken);
-            tokenService.add(newToken, TokenType.GITHUB, gitHubUser, user);
-        } else {
-            userService.update(oldToken.getUser(), clientToken);
-            tokenService.update(oldToken, newToken);
-        }
+        Token token = gitHubService.getToken(code);
+        SocialUser socialUser = gitHubService.getUser(token);
+        addUserAndToken(token, socialUser, TokenType.GITHUB, clientToken);
     }
 
     @RequestMapping("/vk")
     public void vkCallback(@RequestParam("code") String code,
                            @RequestParam("state") String clientToken) {
-        Token newToken = vkService.getToken(code);
-        VkUser vkUser = vkService.getUser(newToken);
-        Token oldToken = tokenService.get(vkUser.getId(), TokenType.VK);
+        Token token = vkService.getToken(code);
+        SocialUser socialUser = vkService.getUser(token);
+        addUserAndToken(token, socialUser, TokenType.VK, clientToken);
+    }
 
-        if(oldToken == null) {
-            User user = userService.add(vkUser, clientToken);
-            tokenService.add(newToken, TokenType.VK, vkUser, user);
+    private void addUserAndToken(Token newToken, SocialUser socialUser,
+                                 TokenType tokenType, String clientToken) {
+        Token oldToken = tokenService.get(socialUser.getId(), tokenType);
+        if (oldToken == null) {
+            User user = userService.add(socialUser, clientToken);
+            tokenService.add(newToken, tokenType, socialUser, user);
         } else {
             userService.update(oldToken.getUser(), clientToken);
             tokenService.update(oldToken, newToken);
         }
     }
+
 }

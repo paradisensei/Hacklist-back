@@ -1,4 +1,4 @@
-package org.hacklist.util.gitHubApi;
+package org.hacklist.util.socialApi.vk;
 
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.PropertySource;
@@ -6,33 +6,35 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 /**
- * @author Aidar Shaifutdinov.
+ * @author Neil Alishev
  */
 @Component
 @PropertySource("classpath:properties/oauth.properties")
-public class GitHubOAuth implements EnvironmentAware {
-
+public class VkOAuth implements EnvironmentAware {
     private Environment env;
 
     @Override
-    public void setEnvironment(Environment env) {
-        this.env = env;
+    public void setEnvironment(Environment environment) {
+        this.env = environment;
     }
 
     public String clientId() {
-        return env.getProperty("gitHub.clientId");
+        return env.getProperty("vk.clientId");
     }
 
     public String secret() {
-        return env.getProperty("gitHub.secret");
+        return env.getProperty("vk.secret");
     }
 
     public String tokenUrl() {
-        return env.getProperty("gitHub.tokenUrl");
+        return env.getProperty("vk.tokenUrl");
     }
 
     public String userUrl() {
-        return env.getProperty("gitHub.userUrl");
+        return env.getProperty("vk.userUrl");
     }
 
+    public String redirectUri() {
+        return env.getProperty("vk.redirectUri");
+    }
 }
