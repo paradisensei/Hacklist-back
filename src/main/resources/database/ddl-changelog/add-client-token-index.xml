@@ -5,9 +5,11 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
 
-    <include file="ddl-changelog/hack-table.xml" relativeToChangelogFile="true"/>
-    <include file="ddl-changelog/users-table.xml" relativeToChangelogFile="true"/>
-    <include file="ddl-changelog/token-table.xml" relativeToChangelogFile="true"/>
-    <include file="ddl-changelog/add-client-token-index.xml" relativeToChangelogFile="true"/>
-
+    <changeSet id="0" author="alishev.neil">
+        <createIndex indexName="client_token_idx"
+                     tableName="users"
+                     unique="true">
+            <column name="client_token" type="varchar(100)"/>
+        </createIndex>
+    </changeSet>
 </databaseChangeLog>
