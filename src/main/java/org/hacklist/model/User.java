@@ -1,6 +1,6 @@
 package org.hacklist.model;
 
-import org.hacklist.util.socialApi.SocialUser;
+import org.hacklist.util.socialApi.user.SocialUser;
 
 import javax.persistence.*;
 

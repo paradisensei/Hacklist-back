@@ -1,7 +1,7 @@
 package org.hacklist.service;
 
 import org.hacklist.model.User;
-import org.hacklist.util.socialApi.SocialUser;
+import org.hacklist.util.socialApi.user.SocialUser;
 
 /**
  * @author Aidar Shaifutdinov.

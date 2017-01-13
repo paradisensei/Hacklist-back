@@ -1,7 +1,6 @@
-package org.hacklist.util.socialApi.gitHub;
+package org.hacklist.util.socialApi.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hacklist.util.socialApi.SocialUser;
 
 /**
  * @author Aidar Shaifutdinov.

@@ -7,7 +7,7 @@ import org.hacklist.service.GitHubService;
 import org.hacklist.service.TokenService;
 import org.hacklist.service.UserService;
 import org.hacklist.service.VkService;
-import org.hacklist.util.socialApi.SocialUser;
+import org.hacklist.util.socialApi.user.SocialUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;

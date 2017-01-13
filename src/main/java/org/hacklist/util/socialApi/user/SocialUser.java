@@ -1,4 +1,4 @@
-package org.hacklist.util.socialApi;
+package org.hacklist.util.socialApi.user;
 
 /**
  * @author Aidar Shaifutdinov.

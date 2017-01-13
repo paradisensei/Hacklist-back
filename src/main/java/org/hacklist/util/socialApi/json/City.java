@@ -1,20 +1,14 @@
-package org.hacklist.util.socialApi.vk;
+package org.hacklist.util.socialApi.json;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * @author Neil Alishev
  */
-public class VkUserCity {
-    private int id;
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class City {
 
     private String title;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getTitle() {
         return title;
@@ -23,4 +17,5 @@ public class VkUserCity {
     public void setTitle(String title) {
         this.title = title;
     }
+
 }

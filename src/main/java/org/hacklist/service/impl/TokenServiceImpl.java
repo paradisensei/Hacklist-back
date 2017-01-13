@@ -5,7 +5,7 @@ import org.hacklist.model.User;
 import org.hacklist.model.enums.TokenType;
 import org.hacklist.repository.TokenRepository;
 import org.hacklist.service.TokenService;
-import org.hacklist.util.socialApi.SocialUser;
+import org.hacklist.util.socialApi.user.SocialUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

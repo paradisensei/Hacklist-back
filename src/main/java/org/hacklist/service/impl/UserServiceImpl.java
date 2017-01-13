@@ -3,7 +3,7 @@ package org.hacklist.service.impl;
 import org.hacklist.model.User;
 import org.hacklist.repository.UserRepository;
 import org.hacklist.service.UserService;
-import org.hacklist.util.socialApi.SocialUser;
+import org.hacklist.util.socialApi.user.SocialUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

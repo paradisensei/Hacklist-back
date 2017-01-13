@@ -2,9 +2,9 @@ package org.hacklist.service.impl;
 
 import org.hacklist.model.Token;
 import org.hacklist.service.GitHubService;
-import org.hacklist.util.socialApi.SocialUser;
-import org.hacklist.util.socialApi.gitHub.GitHubOAuth;
-import org.hacklist.util.socialApi.gitHub.GitHubUser;
+import org.hacklist.util.socialApi.user.SocialUser;
+import org.hacklist.util.socialApi.props.GitHubOAuth;
+import org.hacklist.util.socialApi.user.GitHubUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
