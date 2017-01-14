@@ -1,5 +1,6 @@
 package org.hacklist.util.forms;
 
+import org.hacklist.model.enums.City;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -18,8 +19,7 @@ public class HackForm {
     @Size(min = 1, max = 30, message = "From 1 to 30 symbols")
     private String title;
 
-    @NotBlank(message = BLANK_MESSAGE)
-    private String city;
+    private City city;
 
     @NotBlank(message = BLANK_MESSAGE)
     private String address;
@@ -48,11 +48,11 @@ public class HackForm {
         this.title = title;
     }
 
-    public String getCity() {
+    public City getCity() {
         return city;
     }
 
-    public void setCity(String city) {
+    public void setCity(City city) {
         this.city = city;
     }
 

@@ -10,7 +10,11 @@
             </div>
             <div class="field">
                 <@sf.label path="city">City</@sf.label>
-                <@sf.input path="city" cssClass="form-control" type="text"/>
+                <@sf.select path="city" cssClass="form-control">
+                    <#list cityList as city>
+                        <@sf.option value="${city}" label="${city.getName()}" />
+                    </#list>
+                </@sf.select>
                 <@sf.errors path="city" cssClass="help-block"/>
             </div>
             <div class="field">

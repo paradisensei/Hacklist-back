@@ -3,6 +3,7 @@ package org.hacklist.controller.api;
 import com.jayway.awaitility.core.ConditionTimeoutException;
 import org.hacklist.controller.ApiResponse;
 import org.hacklist.model.Hack;
+import org.hacklist.model.User;
 import org.hacklist.service.HackService;
 import org.hacklist.service.UserService;
 import org.hacklist.util.misc.ErrorObject;
@@ -44,9 +45,16 @@ public class HackController {
                 .atMost(SECONDS_TO_WAIT, SECONDS)
                 .until(() -> userCreated(actualToken));
 
-        System.out.println("USER" + userService.getOneByClientToken(token.replace("\"", "")));
+        User currentUser = userService.getOneByClientToken(actualToken);
+        List<Hack> hacks;
 
-        return new ApiResponse<>(hackService.getAll());
+        if (currentUser.getLocation() == null) {
+            hacks = hackService.getAll();
+        } else {
+            hacks = hackService.getAllByLocation(currentUser.getLocation());
+        }
+
+        return new ApiResponse<>(hacks);
     }
 
     private boolean userCreated(String token) {

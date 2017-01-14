@@ -1,6 +1,7 @@
 package org.hacklist.controller.admin;
 
 import org.hacklist.model.Hack;
+import org.hacklist.model.enums.City;
 import org.hacklist.service.HackService;
 import org.hacklist.util.forms.HackForm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,7 @@ public class HackController {
     @RequestMapping("/new")
     public String getNewForm(Model model) {
         model.addAttribute("hack", new HackForm());
+        model.addAttribute("cityList", City.values());
         return "hack/new_hack";
     }
 
@@ -62,6 +64,7 @@ public class HackController {
         Hack hack = hackService.getOne(id);
         HackForm hackForm = toHackForm(hack);
         model.addAttribute("hack", hackForm);
+        model.addAttribute("cityList", City.values());
         return "hack/update_hack";
     }
 
