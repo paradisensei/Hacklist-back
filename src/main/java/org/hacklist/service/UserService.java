@@ -1,17 +1,14 @@
 package org.hacklist.service;
 
 import org.hacklist.model.User;
-import org.hacklist.util.gitHubApi.GitHubUser;
-import org.hacklist.util.vkApi.VkUser;
+import org.hacklist.util.socialApi.user.SocialUser;
 
 /**
  * @author Aidar Shaifutdinov.
  */
 public interface UserService {
 
-    User add(GitHubUser user, String clientToken);
-
-    User add(VkUser vkUser, String clientToken);
+    User add(SocialUser socialUser, String clientToken);
 
     User getOneByClientToken(String clientToken);
 

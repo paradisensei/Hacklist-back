@@ -1,4 +1,4 @@
-package org.hacklist.util.gitHubApi;
+package org.hacklist.util.socialApi.props;
 
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.PropertySource;

@@ -1,4 +1,4 @@
-package org.hacklist.util.gitHubApi;
+package org.hacklist.util.socialApi.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  * @author Aidar Shaifutdinov.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GitHubUser {
+public class GitHubUser implements SocialUser {
 
     private Long id;
 
@@ -20,6 +20,7 @@ public class GitHubUser {
 
     private String bio;
 
+    @Override
     public Long getId() {
         return id;
     }
@@ -28,6 +29,7 @@ public class GitHubUser {
         this.id = id;
     }
 
+    @Override
     public String getName() {
         return name;
     }
@@ -36,6 +38,7 @@ public class GitHubUser {
         this.name = name;
     }
 
+    @Override
     public String getEmail() {
         return email;
     }
@@ -44,6 +47,7 @@ public class GitHubUser {
         this.email = email;
     }
 
+    @Override
     public String getCompany() {
         return company;
     }
@@ -52,6 +56,7 @@ public class GitHubUser {
         this.company = company;
     }
 
+    @Override
     public String getLocation() {
         return location;
     }
@@ -60,6 +65,7 @@ public class GitHubUser {
         this.location = location;
     }
 
+    @Override
     public String getBio() {
         return bio;
     }

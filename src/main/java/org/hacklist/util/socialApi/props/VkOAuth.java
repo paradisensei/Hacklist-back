@@ -1,4 +1,4 @@
-package org.hacklist.util.vkApi;
+package org.hacklist.util.socialApi.props;
 
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.PropertySource;
@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 @PropertySource("classpath:properties/oauth.properties")
 public class VkOAuth implements EnvironmentAware {
+
     private Environment env;
 
     @Override
@@ -18,12 +19,8 @@ public class VkOAuth implements EnvironmentAware {
         this.env = environment;
     }
 
-    public String clientId() {
-        return env.getProperty("vk.clientId");
-    }
-
-    public String secret() {
-        return env.getProperty("vk.secret");
+    public String version() {
+        return env.getProperty("vk.version");
     }
 
     public String tokenUrl() {
@@ -34,7 +31,4 @@ public class VkOAuth implements EnvironmentAware {
         return env.getProperty("vk.userUrl");
     }
 
-    public String redirectUri() {
-        return env.getProperty("vk.redirectUri");
-    }
 }
