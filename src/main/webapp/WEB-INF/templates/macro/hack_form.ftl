@@ -12,7 +12,7 @@
                 <@sf.label path="city">City</@sf.label>
                 <@sf.select path="city" cssClass="form-control">
                     <#list cities as c>
-                        <@sf.option value="${c}" label="${c.name}" />
+                        <@sf.option value="${c}" label="${city.getName()}" />
                     </#list>
                 </@sf.select>
                 <@sf.errors path="city" cssClass="help-block"/>

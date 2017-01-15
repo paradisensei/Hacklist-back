@@ -1,5 +1,7 @@
 package org.hacklist.model.enums;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 /**
  * @author Neil Alishev
  */
@@ -29,6 +31,7 @@ public enum City {
         return priority;
     }
 
+    @JsonValue
     public String getName() {
         return name;
     }
