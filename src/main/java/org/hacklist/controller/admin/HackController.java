@@ -45,7 +45,7 @@ public class HackController {
     @RequestMapping("/new")
     public String getNewForm(Model model) {
         model.addAttribute("hack", new HackForm());
-        model.addAttribute("cityList", City.values());
+        model.addAttribute("cities", City.values());
         return "hack/new_hack";
     }
 
@@ -64,7 +64,7 @@ public class HackController {
         Hack hack = hackService.getOne(id);
         HackForm hackForm = toHackForm(hack);
         model.addAttribute("hack", hackForm);
-        model.addAttribute("cityList", City.values());
+        model.addAttribute("cities", City.values());
         return "hack/update_hack";
     }
 

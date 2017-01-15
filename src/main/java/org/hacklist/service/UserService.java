@@ -8,9 +8,9 @@ import org.hacklist.util.socialApi.user.SocialUser;
  */
 public interface UserService {
 
-    User add(SocialUser socialUser, String clientToken);
+    User get(String clientToken);
 
-    User getOneByClientToken(String clientToken);
+    User add(SocialUser socialUser, String clientToken);
 
     void update(User user, String clientToken);
 

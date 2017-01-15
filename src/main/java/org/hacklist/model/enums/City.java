@@ -4,31 +4,37 @@ package org.hacklist.model.enums;
  * @author Neil Alishev
  */
 public enum City {
-    Moscow("Москва", 1, "Moscow", "Мск"),
-    SaintPetersburg("Санкт-Петербург", 2, "Saint-Petersburg", "Saint Petersburg", "Спб", "Питер", "SaintP"),
-    Kazan("Казань", 3, "Kazan"),
-    Ekaterinburg("Екатеринбург", 4, "Ekaterinburg"),
-    Novosibirsk("Новосибирск", 5, "Novosibirsk");
 
-    private String name;
+    MOSCOW(1, "Москва", "Moscow", "Мск"),
+
+    SPB(2, "Санкт-Петербург", "Saint-Petersburg", "Saint Petersburg", "Спб", "Питер", "SaintP"),
+
+    KZN(3, "Казань", "Kazan", "Кзн"),
+
+    EKB(4, "Екатеринбург", "Ekaterinburg", "Екб"),
+
+    NOVOSIB(5, "Новосибирск", "Novosibirsk");
+
     private int priority;
+    private String name;
     private String[] synonyms;
 
-    City(String name, int priority, String... synonyms) {
-        this.name = name;
+    City(int priority, String name, String... synonyms) {
         this.priority = priority;
+        this.name = name;
         this.synonyms = synonyms;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public int getPriority() {
         return priority;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public String[] getSynonyms() {
         return synonyms;
     }
+
 }

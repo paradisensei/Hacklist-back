@@ -9,5 +9,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    User findOneByClientToken(String clientToken);
+
+    User findByClientToken(String clientToken);
+
 }

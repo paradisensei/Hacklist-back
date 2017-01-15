@@ -3,19 +3,17 @@ package org.hacklist.controller.api;
 import com.jayway.awaitility.core.ConditionTimeoutException;
 import org.hacklist.controller.ApiResponse;
 import org.hacklist.model.Hack;
-import org.hacklist.model.User;
 import org.hacklist.service.HackService;
 import org.hacklist.service.UserService;
-import org.hacklist.util.misc.ErrorObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static com.jayway.awaitility.Awaitility.await;
 import static com.jayway.awaitility.pollinterval.IterativePollInterval.iterative;
-import static java.util.concurrent.TimeUnit.SECONDS;
 
 /**
  * @author Aidar Shaifutdinov.
@@ -23,8 +21,6 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 @RestController(value = "hackApiController")
 @RequestMapping("/api/hacks")
 public class HackController {
-
-    private final static int SECONDS_TO_WAIT = 10;
 
     private final HackService hackService;
     private final UserService userService;
@@ -38,32 +34,23 @@ public class HackController {
     @RequestMapping("")
     public ApiResponse<List<Hack>> getHackList(@RequestParam("token") String token)
             throws ConditionTimeoutException {
-        String actualToken = token.replace("\"", "");
 
-        await()
-                .with().pollInterval(iterative(duration -> duration.plus(1000)))
-                .atMost(SECONDS_TO_WAIT, SECONDS)
-                .until(() -> userCreated(actualToken));
+        await().with()
+                .pollInterval(iterative(duration -> duration.plus(1000)))
+                .atMost(2, TimeUnit.SECONDS)
+                .until(() -> userService.get(token) != null);
 
-        User currentUser = userService.getOneByClientToken(actualToken);
-        List<Hack> hacks;
-
-        if (currentUser.getLocation() == null) {
-            hacks = hackService.getAll();
-        } else {
-            hacks = hackService.getAllByLocation(currentUser.getLocation());
-        }
+        String location = userService.get(token).getLocation();
+        List<Hack> hacks = location == null ? hackService.getAll()
+                : hackService.getAll(location);
 
         return new ApiResponse<>(hacks);
     }
 
-    private boolean userCreated(String token) {
-        return userService.getOneByClientToken(token) != null;
-    }
-
     @ExceptionHandler(ConditionTimeoutException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    public ErrorObject handleException(ConditionTimeoutException e) {
-        return new ErrorObject("10 seconds are out!");
+    public ApiResponse handleException(ConditionTimeoutException e) {
+        return new ApiResponse("Auth failed!");
     }
+
 }

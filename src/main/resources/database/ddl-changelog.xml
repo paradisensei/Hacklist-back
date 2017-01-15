@@ -8,6 +8,5 @@
     <include file="ddl-changelog/hack-table.xml" relativeToChangelogFile="true"/>
     <include file="ddl-changelog/users-table.xml" relativeToChangelogFile="true"/>
     <include file="ddl-changelog/token-table.xml" relativeToChangelogFile="true"/>
-    <include file="ddl-changelog/add-client-token-index.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

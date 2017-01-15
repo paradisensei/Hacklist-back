@@ -23,16 +23,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User get(String clientToken) {
+        return userRepository.findByClientToken(clientToken);
+    }
+
+    @Override
     public User add(SocialUser socialUser, String clientToken) {
         User user = new User(socialUser);
         user.setClientToken(clientToken);
         return userRepository.save(user);
-    }
-
-    @Override
-    public User getOneByClientToken(String clientToken) {
-        User user = userRepository.findOneByClientToken(clientToken);
-        return user;
     }
 
     @Override
