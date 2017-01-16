@@ -8,6 +8,8 @@ import org.hacklist.util.socialApi.user.SocialUser;
  */
 public interface UserService {
 
+    User get(String clientToken);
+
     User add(SocialUser socialUser, String clientToken);
 
     void update(User user, String clientToken);

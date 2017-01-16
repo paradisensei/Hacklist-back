@@ -11,6 +11,8 @@ public interface HackService {
 
     List<Hack> getAll();
 
+    List<Hack> getAll(String location);
+
     Hack getOne(Long id);
 
     Hack add(Hack hack);

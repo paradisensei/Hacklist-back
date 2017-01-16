@@ -21,7 +21,13 @@
         <addPrimaryKey tableName="users" columnNames="id"/>
     </changeSet>
 
-    <changeSet id="2" author="paradisensei">
+    <changeSet id="2" author="alishev.neil">
+        <createIndex indexName="users_client_token_idx" tableName="users" unique="true">
+            <column name="client_token" type="varchar(100)"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="3" author="paradisensei">
         <createSequence sequenceName="users_seq"
                         schemaName="public" incrementBy="1" startValue="100"/>
     </changeSet>

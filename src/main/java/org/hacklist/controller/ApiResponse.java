@@ -1,18 +1,33 @@
 package org.hacklist.controller;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 /**
  * @author Aidar Shaifutdinov.
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiResponse<T> {
 
-    private T response;
+    private final T data;
 
-    public ApiResponse(T response) {
-        this.response = response;
+    private final String error;
+
+    public ApiResponse(T data) {
+        this.data = data;
+        this.error = null;
     }
 
-    public T getResponse() {
-        return response;
+    public ApiResponse(String error) {
+        this.error = error;
+        this.data = null;
+    }
+
+    public T getData() {
+        return data;
+    }
+
+    public String getError() {
+        return error;
     }
 
 }

@@ -1,5 +1,7 @@
 package org.hacklist.model;
 
+import org.hacklist.model.enums.City;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -17,7 +19,8 @@ public class Hack {
 
     private String title;
 
-    private String city;
+    @Enumerated(EnumType.STRING)
+    private City city;
 
     private String address;
 
@@ -42,11 +45,11 @@ public class Hack {
         this.title = title;
     }
 
-    public String getCity() {
+    public City getCity() {
         return city;
     }
 
-    public void setCity(String city) {
+    public void setCity(City city) {
         this.city = city;
     }
 

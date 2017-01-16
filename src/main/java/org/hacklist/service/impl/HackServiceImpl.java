@@ -3,10 +3,13 @@ package org.hacklist.service.impl;
 import org.hacklist.model.Hack;
 import org.hacklist.repository.HackRepository;
 import org.hacklist.service.HackService;
+import org.hacklist.util.misc.HacksComparators;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -25,7 +28,19 @@ public class HackServiceImpl implements HackService {
 
     @Override
     public List<Hack> getAll() {
-        return hackRepository.findAll();
+        return getAll(HacksComparators.withoutLocationComparator());
+    }
+
+    @Override
+    public List<Hack> getAll(String location) {
+        return getAll(HacksComparators.withLocationComparator(location));
+    }
+
+    private List<Hack> getAll(Comparator<Hack> comparator) {
+        // this is probably acceptable due to small number of hacks in the db.
+        List<Hack> list = hackRepository.findAll();
+        Collections.sort(list, comparator);
+        return list;
     }
 
     @Override
