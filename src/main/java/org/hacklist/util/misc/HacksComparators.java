@@ -15,9 +15,14 @@ public class HacksComparators {
 
     public static Comparator<Hack> withLocationComparator(String location) {
         return (o1, o2) -> {
-            if (hackInUserLocation(o1, location)) {
+            boolean o1InUserLocation = hackInUserLocation(o1, location);
+            boolean o2InUserLocation = hackInUserLocation(o2, location);
+
+            if (o1InUserLocation && o2InUserLocation) {
+                return 0;
+            } else if (o1InUserLocation) {
                 return -1;
-            } else if (hackInUserLocation(o2, location)) {
+            } else if (o2InUserLocation) {
                 return 1;
             } else {
                 return Integer.valueOf(o1.getCity().getPriority()).compareTo(o2.getCity().getPriority());
