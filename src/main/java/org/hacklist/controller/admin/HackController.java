@@ -70,8 +70,9 @@ public class HackController {
 
     @RequestMapping(value = "/{id}/update", method = RequestMethod.POST)
     public String update(@ModelAttribute("hack") @Valid HackForm hackForm,
-                         BindingResult result) {
+                         BindingResult result, Model model) {
         if (result.hasErrors()) {
+            model.addAttribute("cities", City.values());
             return "hack/update_hack";
         }
         Hack hack = hackService.add(toHack(hackForm));

@@ -19,7 +19,7 @@
                     <td>
                         <a href="/admin/hacks/${hack.id}">${hack.title}</a>
                     </td>
-                    <td>${hack.city}</td>
+                    <td>${hack.city.getName()}</td>
                     <td>${hack.address}</td>
                     <td>${hack.date}</td>
                     <td>${hack.description}</td>

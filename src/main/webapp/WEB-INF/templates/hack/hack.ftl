@@ -5,7 +5,7 @@
 
     <#if hack??>
         <p>${hack.title}</p>
-        <p>${hack.city}</p>
+        <p>${hack.city.getName()}</p>
         <p>${hack.address}</p>
         <p>${hack.date}</p>
         <p>${hack.description}</p>
