@@ -32,6 +32,16 @@
                 <@sf.textarea path="description" cssClass="form-control" rows="15"/>
                 <@sf.errors path="description" cssClass="help-block"/>
             </div>
+            <div class="field">
+                <@sf.label path="imageUrl">Image url</@sf.label>
+                <@sf.input path="imageUrl" cssClass="form-control" type="url"/>
+                <@sf.errors path="imageUrl" cssClass="help-block"/>
+            </div>
+            <div class="field">
+                <@sf.label path="url">Url</@sf.label>
+                <@sf.input path="url" cssClass="form-control" type="url"/>
+                <@sf.errors path="url" cssClass="help-block"/>
+            </div>
             <div class="form-group">
                 <input class="btn btn-info btn-outline" type="submit" value=${btnValue}>
             </div>

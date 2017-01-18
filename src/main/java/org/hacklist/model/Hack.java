@@ -10,7 +10,8 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "hack")
-@SequenceGenerator(name = "hack_gen", sequenceName = "hack_seq")
+@SequenceGenerator(name = "hack_gen", sequenceName = "hack_seq",
+        initialValue = 101, allocationSize = 1)
 public class Hack {
 
     @Id
@@ -28,6 +29,11 @@ public class Hack {
     private Date date;
 
     private String description;
+
+    @Column(name = "image_url")
+    private String imageUrl;
+
+    private String url;
 
     public Long getId() {
         return id;
@@ -75,6 +81,22 @@ public class Hack {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
 }

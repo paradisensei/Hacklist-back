@@ -30,13 +30,15 @@
 
     <changeSet id="3" author="paradisensei">
         <createSequence sequenceName="token_seq"
-                        schemaName="public" incrementBy="1" startValue="100"/>
+                        schemaName="public" startValue="1" incrementBy="1"/>
     </changeSet>
 
     <changeSet id="4" author="paradisensei">
+        <addNotNullConstraint tableName="token" columnName="social_id"/>
         <addNotNullConstraint tableName="token" columnName="access_token"/>
         <addNotNullConstraint tableName="token" columnName="birth_date"/>
         <addNotNullConstraint tableName="token" columnName="actual"/>
+        <addNotNullConstraint tableName="token" columnName="type"/>
         <addNotNullConstraint tableName="token" columnName="user_id"/>
     </changeSet>
 

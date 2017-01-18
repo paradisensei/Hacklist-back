@@ -13,6 +13,8 @@
             <column name="address" type="varchar(50)"/>
             <column name="date" type="timestamp"/>
             <column name="description" type="text"/>
+            <column name="image_url" type="varchar(250)"/>
+            <column name="url" type="varchar(250)"/>
         </createTable>
     </changeSet>
 
@@ -22,7 +24,7 @@
 
     <changeSet id="2" author="paradisensei">
         <createSequence sequenceName="hack_seq"
-                        schemaName="public" incrementBy="1" startValue="100"/>
+                        schemaName="public" startValue="101" incrementBy="1"/>
     </changeSet>
 
     <changeSet id="3" author="paradisensei">
@@ -31,6 +33,8 @@
         <addNotNullConstraint tableName="hack" columnName="address"/>
         <addNotNullConstraint tableName="hack" columnName="date"/>
         <addNotNullConstraint tableName="hack" columnName="description"/>
+        <addNotNullConstraint tableName="hack" columnName="image_url"/>
+        <addNotNullConstraint tableName="hack" columnName="url"/>
     </changeSet>
 
 </databaseChangeLog>

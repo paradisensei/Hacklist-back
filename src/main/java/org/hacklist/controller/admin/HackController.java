@@ -51,8 +51,9 @@ public class HackController {
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String create(@ModelAttribute("hack") @Valid HackForm hackForm,
-                         BindingResult result) {
+                         BindingResult result, Model model) {
         if (result.hasErrors()) {
+            model.addAttribute("cities", City.values());
             return "hack/new_hack";
         }
         Hack hack = hackService.add(toHack(hackForm));
