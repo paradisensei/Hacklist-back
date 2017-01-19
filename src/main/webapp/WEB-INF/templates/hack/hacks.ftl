@@ -11,6 +11,8 @@
                 <th>Address</th>
                 <th>Date</th>
                 <th>Description</th>
+                <th>Image</th>
+                <th>Url</th>
             </tr>
         </thead>
         <tbody>
@@ -23,6 +25,8 @@
                     <td>${hack.address}</td>
                     <td>${hack.date}</td>
                     <td>${hack.description}</td>
+                    <td><a href="${hack.imageUrl}" target="_blank">Image</a></td>
+                    <td><a href="${hack.url}" target="_blank">Url</a></td>
                 </tr>
             </#list>
         </tbody>

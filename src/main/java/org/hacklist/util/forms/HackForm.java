@@ -2,6 +2,7 @@ package org.hacklist.util.forms;
 
 import org.hacklist.model.enums.City;
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.URL;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Size;
@@ -31,6 +32,14 @@ public class HackForm {
     @NotBlank(message = BLANK_MESSAGE)
     @Size(min = 1, max = 300, message = "From 1 to 300 symbols")
     private String description;
+
+    @NotBlank(message = BLANK_MESSAGE)
+    @URL
+    private String imageUrl;
+
+    @NotBlank(message = BLANK_MESSAGE)
+    @URL
+    private String url;
 
     public Long getId() {
         return id;
@@ -78,6 +87,22 @@ public class HackForm {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
 }

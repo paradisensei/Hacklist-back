@@ -12,7 +12,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "token")
-@SequenceGenerator(name = "token_gen", sequenceName = "token_seq")
+@SequenceGenerator(name = "token_gen", sequenceName = "token_seq", allocationSize = 1)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Token {
 
