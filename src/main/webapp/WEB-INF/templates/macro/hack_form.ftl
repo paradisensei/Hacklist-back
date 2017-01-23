@@ -23,6 +23,11 @@
                 <@sf.errors path="address" cssClass="help-block"/>
             </div>
             <div class="field">
+                <@sf.label path="organizer">Organizer</@sf.label>
+                <@sf.input path="organizer" cssClass="form-control" type="text"/>
+                <@sf.errors path="organizer" cssClass="help-block"/>
+            </div>
+            <div class="field">
                 <@sf.label path="date">Date</@sf.label>
                 <@sf.input path="date" cssClass="form-control" type="datetime-local"/>
                 <@sf.errors path="date" cssClass="help-block"/>

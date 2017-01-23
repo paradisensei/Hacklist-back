@@ -25,6 +25,8 @@ public class Hack {
 
     private String address;
 
+    private String organizer;
+
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
@@ -65,6 +67,14 @@ public class Hack {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getOrganizer() {
+        return organizer;
+    }
+
+    public void setOrganizer(String organizer) {
+        this.organizer = organizer;
     }
 
     public Date getDate() {

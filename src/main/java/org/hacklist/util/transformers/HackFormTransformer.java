@@ -27,6 +27,7 @@ public class HackFormTransformer {
         hack.setTitle(hackForm.getTitle());
         hack.setCity(hackForm.getCity());
         hack.setAddress(hackForm.getAddress());
+        hack.setOrganizer(hackForm.getOrganizer());
         hack.setDate(toHackDate(hackForm.getDate()));
         hack.setDescription(hackForm.getDescription());
         hack.setImageUrl(hackForm.getImageUrl());
@@ -40,6 +41,7 @@ public class HackFormTransformer {
         hackForm.setTitle(hack.getTitle());
         hackForm.setCity(hack.getCity());
         hackForm.setAddress(hack.getAddress());
+        hackForm.setOrganizer(hack.getOrganizer());
         hackForm.setDate(toHackFormDate(hack.getDate()));
         hackForm.setDescription(hack.getDescription());
         hackForm.setImageUrl(hack.getImageUrl());

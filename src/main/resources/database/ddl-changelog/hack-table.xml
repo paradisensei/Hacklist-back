@@ -11,6 +11,7 @@
             <column name="title" type="varchar(50)"/>
             <column name="city" type="varchar(50)"/>
             <column name="address" type="varchar(50)"/>
+            <column name="organizer" type="varchar(50)"/>
             <column name="date" type="timestamp"/>
             <column name="description" type="text"/>
             <column name="image_url" type="varchar(250)"/>
@@ -31,6 +32,7 @@
         <addNotNullConstraint tableName="hack" columnName="title"/>
         <addNotNullConstraint tableName="hack" columnName="city"/>
         <addNotNullConstraint tableName="hack" columnName="address"/>
+        <addNotNullConstraint tableName="hack" columnName="organizer"/>
         <addNotNullConstraint tableName="hack" columnName="date"/>
         <addNotNullConstraint tableName="hack" columnName="description"/>
         <addNotNullConstraint tableName="hack" columnName="image_url"/>
