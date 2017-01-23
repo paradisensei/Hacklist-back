@@ -9,6 +9,7 @@
                 <th>Title</th>
                 <th>City</th>
                 <th>Address</th>
+                <th>Organizer</th>
                 <th>Date</th>
                 <th>Description</th>
                 <th>Image</th>
@@ -23,6 +24,7 @@
                     </td>
                     <td>${hack.city.getName()}</td>
                     <td>${hack.address}</td>
+                    <td>${hack.organizer}</td>
                     <td>${hack.date}</td>
                     <td>${hack.description}</td>
                     <td><a href="${hack.imageUrl}" target="_blank">Image</a></td>

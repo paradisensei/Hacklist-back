@@ -7,6 +7,7 @@
         <p>${hack.title}</p>
         <p>${hack.city.getName()}</p>
         <p>${hack.address}</p>
+        <p>${hack.organizer}</p>
         <p>${hack.date}</p>
         <p>${hack.description}</p>
         <p><a href="${hack.imageUrl}" target="_blank">Image</a></p>

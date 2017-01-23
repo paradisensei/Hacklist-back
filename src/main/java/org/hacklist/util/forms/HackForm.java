@@ -17,13 +17,17 @@ public class HackForm {
     private Long id;
 
     @NotBlank(message = BLANK_MESSAGE)
-    @Size(min = 1, max = 30, message = "From 1 to 30 symbols")
+    @Size(min = 1, max = 50, message = "From 1 to 50 symbols")
     private String title;
 
     private City city;
 
     @NotBlank(message = BLANK_MESSAGE)
     private String address;
+
+    @NotBlank(message = BLANK_MESSAGE)
+    @Size(min = 1, max = 50, message = "From 1 to 50 symbols")
+    private String organizer;
 
     @NotBlank(message = BLANK_MESSAGE)
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
@@ -71,6 +75,14 @@ public class HackForm {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getOrganizer() {
+        return organizer;
+    }
+
+    public void setOrganizer(String organizer) {
+        this.organizer = organizer;
     }
 
     public String getDate() {
