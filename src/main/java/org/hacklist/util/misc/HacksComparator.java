@@ -8,25 +8,31 @@ import java.util.Comparator;
 /**
  * @author Neil Alishev
  */
-public class HacksComparators {
-    public static Comparator<Hack> withoutLocationComparator() {
-        return (o1, o2) -> Integer.valueOf(o1.getCity().getPriority()).compareTo(o2.getCity().getPriority());
+public class HacksComparator {
+
+    public static Comparator<Hack> comparator() {
+        return (o1, o2) -> {
+            int res = o1.getCity().getPriority().compareTo(o2.getCity().getPriority());
+            if (res == 0) {
+                res = o1.getDate().compareTo(o2.getDate());
+            }
+            return res;
+        };
     }
 
-    public static Comparator<Hack> withLocationComparator(String location) {
+    public static Comparator<Hack> comparator(String location) {
         return (o1, o2) -> {
             boolean o1InUserLocation = hackInUserLocation(o1, location);
             boolean o2InUserLocation = hackInUserLocation(o2, location);
 
             if (o1InUserLocation && o2InUserLocation) {
-                return 0;
+                return o1.getDate().compareTo(o2.getDate());
             } else if (o1InUserLocation) {
                 return -1;
             } else if (o2InUserLocation) {
                 return 1;
-            } else {
-                return Integer.valueOf(o1.getCity().getPriority()).compareTo(o2.getCity().getPriority());
             }
+            return comparator().compare(o1, o2);
         };
     }
 
@@ -34,4 +40,5 @@ public class HacksComparators {
         return hack.getCity().getName().equals(location)
                 || Arrays.asList(hack.getCity().getSynonyms()).contains(location);
     }
+
 }

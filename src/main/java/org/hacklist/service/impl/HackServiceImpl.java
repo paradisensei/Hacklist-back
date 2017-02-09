@@ -3,7 +3,7 @@ package org.hacklist.service.impl;
 import org.hacklist.model.Hack;
 import org.hacklist.repository.HackRepository;
 import org.hacklist.service.HackService;
-import org.hacklist.util.misc.HacksComparators;
+import org.hacklist.util.misc.HacksComparator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,12 +28,12 @@ public class HackServiceImpl implements HackService {
 
     @Override
     public List<Hack> getAll() {
-        return getAll(HacksComparators.withoutLocationComparator());
+        return getAll(HacksComparator.comparator());
     }
 
     @Override
     public List<Hack> getAll(String location) {
-        return getAll(HacksComparators.withLocationComparator(location));
+        return getAll(HacksComparator.comparator(location));
     }
 
     private List<Hack> getAll(Comparator<Hack> comparator) {
