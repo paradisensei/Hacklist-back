@@ -27,7 +27,7 @@ public enum City {
         this.synonyms = synonyms;
     }
 
-    public int getPriority() {
+    public Integer getPriority() {
         return priority;
     }
 
