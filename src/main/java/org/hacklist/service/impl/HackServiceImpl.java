@@ -1,10 +1,14 @@
 package org.hacklist.service.impl;
 
+import org.hacklist.logging.LogAspect;
 import org.hacklist.model.Hack;
 import org.hacklist.repository.HackRepository;
 import org.hacklist.service.HackService;
 import org.hacklist.util.misc.HacksComparator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +23,8 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class HackServiceImpl implements HackService {
 
+    private static final Logger logger = LoggerFactory.getLogger(LogAspect.class);
+
     private final HackRepository hackRepository;
 
     @Autowired
@@ -32,8 +38,12 @@ public class HackServiceImpl implements HackService {
     }
 
     @Override
+    @Cacheable("hacks")
     public List<Hack> getAll(String location) {
-        return getAll(HacksComparator.comparator(location));
+        logger.info("filling cache with hacks in " + location);
+        Comparator<Hack> comparator = location == null ? HacksComparator.comparator()
+                : HacksComparator.comparator(location);
+        return getAll(comparator);
     }
 
     private List<Hack> getAll(Comparator<Hack> comparator) {

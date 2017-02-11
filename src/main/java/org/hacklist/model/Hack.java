@@ -3,6 +3,7 @@ package org.hacklist.model;
 import org.hacklist.model.enums.City;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -12,7 +13,7 @@ import java.util.Date;
 @Table(name = "hack")
 @SequenceGenerator(name = "hack_gen", sequenceName = "hack_seq",
         initialValue = 101, allocationSize = 1)
-public class Hack {
+public class Hack implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hack_gen")
