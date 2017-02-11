@@ -41,8 +41,7 @@ public class HackController {
                 .until(() -> userService.get(token) != null);
 
         String location = userService.get(token).getLocation();
-        List<Hack> hacks = location == null ? hackService.getAll()
-                : hackService.getAll(location);
+        List<Hack> hacks = hackService.getAll(location);
 
         return new ApiResponse<>(hacks);
     }

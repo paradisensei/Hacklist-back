@@ -1,4 +1,4 @@
-package org.hacklist.log;
+package org.hacklist.logging;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
@@ -27,7 +27,7 @@ public class LogAspect {
     @Before("execution(* org.hacklist.controller.api.HackController.getHackList(..))")
     public void logGetHacks(JoinPoint jp) {
         String token = jp.getArgs()[0].toString();
-        logger.info("User with token=\"" + token + "\" tries to get hacks");
+        logger.info("User with token='" + token + "' tries to get hacks");
     }
 
     @Before("execution(* org.hacklist.controller.api.HackController.handleException(..))")
