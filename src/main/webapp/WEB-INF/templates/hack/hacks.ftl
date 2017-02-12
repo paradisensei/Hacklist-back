@@ -1,7 +1,12 @@
 <#include "../main_template.ftl"/>
 
 <#macro content>
-    <h1>Hacks</h1>
+    <div>
+        <h1 style="margin-right: 35px; display: inline-block">Hacks</h1>
+        <button type="button" id="flush" style="display: inline-block">
+            Flush cache
+        </button>
+    </div>
 
     <table>
         <thead>
@@ -35,4 +40,4 @@
     </table>
 </#macro>
 
-<@main title="Hacks"/>
+<@main title="Hacks" scripts=["/js/hacks.js"]/>
