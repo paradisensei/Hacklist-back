@@ -1,6 +1,7 @@
 <#include "../main_template.ftl"/>
 
 <#macro content>
+    <a href="/logout">Logout</a>
     <div>
         <h1 style="margin-right: 35px; display: inline-block">Hacks</h1>
         <button type="button" id="flush" style="display: inline-block">

@@ -8,39 +8,49 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.access.AccessDeniedHandler;
 
 /**
  * @author Neil Alishev
  */
-@EnableWebSecurity
 @Configuration
+@EnableWebSecurity
 @ComponentScan("org.hacklist.security")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private final AuthProviderImpl authProvider;
+    private final AccessDeniedHandler accessDeniedHandler;
+
     @Autowired
-    private AuthProviderImpl authProvider;
-
-    @Override
-    protected void configure(
-            AuthenticationManagerBuilder auth) throws Exception {
-
-        auth.authenticationProvider(authProvider);
+    public SecurityConfig(AuthProviderImpl authProvider, AccessDeniedHandler accessDeniedHandler) {
+        this.authProvider = authProvider;
+        this.accessDeniedHandler = accessDeniedHandler;
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
         http.authorizeRequests()
-                .antMatchers("/admin/sign_in").access("permitAll")
-                .antMatchers("/admin/sign_up").access("permitAll")
-                .antMatchers("/**").access("isAuthenticated() and hasRole('ROLE_ENABLED')");
+                .antMatchers("/admin/sign_in", "/admin/sign_up").anonymous()
+                .antMatchers("/admin/**").hasRole("ADMIN");
 
-        http.formLogin()
-                .defaultSuccessUrl("/admin/hacks", true)
+        http.csrf().disable()
+                .formLogin()
                 .loginPage("/admin/sign_in")
-                .loginProcessingUrl("/sign_in/process")
-                .failureForwardUrl("/admin/sign_in?error=true")
+                .loginProcessingUrl("/login/process")
                 .usernameParameter("email")
-                .passwordParameter("password");
+                .passwordParameter("password")
+                .defaultSuccessUrl("/admin/hacks", true)
+                .failureUrl("/admin/sign_in?error=true")
+                .and()
+                .logout().logoutSuccessUrl("/admin/sign_in")
+                .and()
+                .exceptionHandling()
+                .accessDeniedHandler(accessDeniedHandler);
     }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(authProvider);
+    }
+
 }

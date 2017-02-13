@@ -1,7 +1,7 @@
 package org.hacklist.security;
 
 import org.hacklist.model.Admin;
-import org.hacklist.model.enums.Role;
+import org.hacklist.model.enums.AdminStatus;
 import org.hacklist.repository.AdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -13,6 +13,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -24,9 +25,9 @@ import java.util.List;
 @Component
 public class AuthProviderImpl implements AuthenticationProvider {
 
-    private final AdminRepository adminRepository;
+    private static final PasswordEncoder encoder = new BCryptPasswordEncoder();
 
-    private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+    private final AdminRepository adminRepository;
 
     @Autowired
     public AuthProviderImpl(AdminRepository adminRepository) {
@@ -36,25 +37,23 @@ public class AuthProviderImpl implements AuthenticationProvider {
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String email = authentication.getName();
-        String password = authentication.getCredentials().toString();
-
-        Admin admin = adminRepository.findOneByEmail(email);
-
-        if(admin == null || admin.getRole() == Role.ROLE_DISABLED) {
-            throw new UsernameNotFoundException("User not found.");
+        Admin admin = adminRepository.findByEmail(email);
+        if (admin == null || admin.getStatus() == AdminStatus.OFF) {
+            throw new UsernameNotFoundException("User not found");
         }
 
+        String password = authentication.getCredentials().toString();
         if (!encoder.matches(password, admin.getPassword()))
-            throw new BadCredentialsException("Bad credentials.");
+            throw new BadCredentialsException("Invalid password");
 
         List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(admin.getRole().toString()));
+        authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         return new UsernamePasswordAuthenticationToken(admin, null, authorities);
     }
 
     @Override
     public boolean supports(Class<?> aClass) {
-        return aClass.equals(
-                UsernamePasswordAuthenticationToken.class);
+        return aClass.equals(UsernamePasswordAuthenticationToken.class);
     }
+
 }

@@ -8,9 +8,9 @@
     <changeSet id="0" author="alishev.neil">
         <createTable tableName="admin">
             <column name="id" type="int8"/>
-            <column name="email" type="varchar(100)"/>
+            <column name="email" type="varchar(50)"/>
             <column name="password" type="varchar(100)"/>
-            <column name="role" type="varchar(50)"/>
+            <column name="status" type="varchar(20)"/>
         </createTable>
     </changeSet>
 
@@ -18,15 +18,21 @@
         <addPrimaryKey tableName="admin" columnNames="id"/>
     </changeSet>
 
-    <changeSet id="2" author="alishev.neil">
+    <changeSet id="2" author="paradisensei">
+        <createIndex indexName="admin_email_idx" tableName="admin" unique="true">
+            <column name="email" type="varchar(50)"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="3" author="alishev.neil">
         <createSequence sequenceName="admin_seq"
                         schemaName="public" startValue="1" incrementBy="1"/>
     </changeSet>
 
-    <changeSet id="3" author="alishev.neil">
+    <changeSet id="4" author="alishev.neil">
         <addNotNullConstraint tableName="admin" columnName="email"/>
         <addNotNullConstraint tableName="admin" columnName="password"/>
-        <addNotNullConstraint tableName="admin" columnName="role"/>
+        <addNotNullConstraint tableName="admin" columnName="status"/>
     </changeSet>
 
 </databaseChangeLog>

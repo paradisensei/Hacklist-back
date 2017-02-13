@@ -1,6 +1,6 @@
 package org.hacklist.model;
 
-import org.hacklist.model.enums.Role;
+import org.hacklist.model.enums.AdminStatus;
 
 import javax.persistence.*;
 
@@ -21,7 +21,15 @@ public class Admin {
     private String password;
 
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private AdminStatus status;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getEmail() {
         return email;
@@ -39,11 +47,12 @@ public class Admin {
         this.password = password;
     }
 
-    public Role getRole() {
-        return role;
+    public AdminStatus getStatus() {
+        return status;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setStatus(AdminStatus status) {
+        this.status = status;
     }
+
 }

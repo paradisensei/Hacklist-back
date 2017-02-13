@@ -4,7 +4,7 @@
 
 <#macro content>
     <h1>Sign up</h1>
-    <@af_mac.auth_form actionUrl="/admin/sign_up" btnValue="Sign up"/>
+    <@af_mac.auth_form actionUrl="/admin/sign_up" btnValue="Sign_up"/>
 </#macro>
 
 <@main title="Sign up"/>

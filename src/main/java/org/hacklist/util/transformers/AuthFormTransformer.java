@@ -1,22 +1,26 @@
 package org.hacklist.util.transformers;
 
 import org.hacklist.model.Admin;
-import org.hacklist.model.enums.Role;
+import org.hacklist.model.enums.AdminStatus;
 import org.hacklist.util.forms.AuthForm;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import java.util.function.Function;
 
 /**
  * @author Neil Alishev
  */
-public class AuthFormTransformer {
+public class AuthFormTransformer implements Function<AuthForm, Admin> {
+
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-    public static Admin toAdmin(AuthForm authForm) {
+    @Override
+    public Admin apply(AuthForm authForm) {
         Admin admin = new Admin();
         admin.setEmail(authForm.getEmail());
         admin.setPassword(encoder.encode(authForm.getPassword()));
-        admin.setRole(Role.ROLE_DISABLED);
-
+        admin.setStatus(AdminStatus.OFF);
         return admin;
     }
+
 }

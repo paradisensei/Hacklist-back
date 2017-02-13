@@ -5,7 +5,8 @@ import org.hacklist.model.Admin;
 /**
  * @author Neil Alishev
  */
-public interface AuthService {
+public interface AdminService {
 
     void add(Admin admin);
+
 }

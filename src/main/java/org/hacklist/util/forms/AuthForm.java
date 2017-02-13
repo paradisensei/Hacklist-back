@@ -9,6 +9,7 @@ import javax.validation.constraints.Size;
  * @author Neil Alishev
  */
 public class AuthForm {
+
     private static final String BLANK_MESSAGE = "This field is mandatory";
 
     @NotBlank(message = BLANK_MESSAGE)
@@ -17,7 +18,7 @@ public class AuthForm {
     private String email;
 
     @NotBlank(message = BLANK_MESSAGE)
-    @Size(min = 1, max = 50, message = "From 1 to 50 symbols")
+    @Size(min = 7, max = 20, message = "From 7 to 20 symbols")
     private String password;
 
     public String getEmail() {
@@ -35,4 +36,5 @@ public class AuthForm {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }
