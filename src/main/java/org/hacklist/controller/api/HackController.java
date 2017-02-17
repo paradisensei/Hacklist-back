@@ -37,7 +37,7 @@ public class HackController {
 
         await().with()
                 .pollInterval(iterative(duration -> duration.plus(1000)))
-                .atMost(5, TimeUnit.SECONDS)
+                .atMost(7, TimeUnit.SECONDS)
                 .until(() -> userService.get(token) != null);
 
         String location = userService.get(token).getLocation();

@@ -1,6 +1,7 @@
 package org.hacklist.task;
 
 import org.hacklist.model.Hack;
+import org.hacklist.service.CacheService;
 import org.hacklist.service.HackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -20,23 +21,30 @@ import java.util.List;
 public class RefreshHacksTask {
 
     private final HackService hackService;
+    private final CacheService cacheService;
 
     @Autowired
-    public RefreshHacksTask(HackService hackService) {
+    public RefreshHacksTask(HackService hackService, CacheService cacheService) {
         this.hackService = hackService;
+        this.cacheService = cacheService;
     }
 
     // fixedRate = 1 hour
     @Scheduled(fixedRate = 3600000)
     public void refreshHacks() {
         List<Hack> hacks = hackService.getAll();
-        hacks.stream()
-                .filter(h -> {
-                    long hackTime = h.getDate().getTime();
-                    long nowTime = System.currentTimeMillis();
-                    return nowTime > hackTime;
-                })
-                .forEach(h -> hackService.delete(h.getId()));
+        boolean flushCache = false;
+        for (Hack h : hacks) {
+            long hackTime = h.getDate().getTime();
+            long nowTime = System.currentTimeMillis();
+            if (nowTime > hackTime) {
+                hackService.delete(h.getId());
+                flushCache = true;
+            }
+        }
+        if (flushCache) {
+            cacheService.flush();
+        }
     }
 
 }
