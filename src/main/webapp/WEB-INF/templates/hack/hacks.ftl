@@ -14,6 +14,7 @@
             <tr>
                 <th>Title</th>
                 <th>City</th>
+                <th>Category</th>
                 <th>Address</th>
                 <th>Organizer</th>
                 <th>Date</th>
@@ -29,6 +30,7 @@
                         <a href="/admin/hacks/${hack.id}">${hack.title}</a>
                     </td>
                     <td>${hack.city.getName()}</td>
+                    <td>${hack.category}</td>
                     <td>${hack.address}</td>
                     <td>${hack.organizer}</td>
                     <td>${hack.date}</td>

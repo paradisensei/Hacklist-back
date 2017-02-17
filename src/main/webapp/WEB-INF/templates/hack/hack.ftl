@@ -6,6 +6,7 @@
     <#if hack??>
         <p>${hack.title}</p>
         <p>${hack.city.getName()}</p>
+        <p>${hack.category}</p>
         <p>${hack.address}</p>
         <p>${hack.organizer}</p>
         <p>${hack.date}</p>

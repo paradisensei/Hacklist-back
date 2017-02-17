@@ -10,6 +10,7 @@
             <column name="id" type="int8"/>
             <column name="title" type="varchar(50)"/>
             <column name="city" type="varchar(50)"/>
+            <column name="category" type="varchar(50)"/>
             <column name="address" type="varchar(50)"/>
             <column name="organizer" type="varchar(50)"/>
             <column name="date" type="timestamp"/>
@@ -31,6 +32,7 @@
     <changeSet id="3" author="paradisensei">
         <addNotNullConstraint tableName="hack" columnName="title"/>
         <addNotNullConstraint tableName="hack" columnName="city"/>
+        <addNotNullConstraint tableName="hack" columnName="category"/>
         <addNotNullConstraint tableName="hack" columnName="address"/>
         <addNotNullConstraint tableName="hack" columnName="organizer"/>
         <addNotNullConstraint tableName="hack" columnName="date"/>
