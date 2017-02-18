@@ -18,6 +18,15 @@
                 <@sf.errors path="city" cssClass="help-block"/>
             </div>
             <div class="field">
+                <@sf.label path="category">Category</@sf.label>
+                <@sf.select path="category" cssClass="form-control">
+                    <#list categories as category>
+                        <@sf.option value="${category}"/>
+                    </#list>
+                </@sf.select>
+                <@sf.errors path="category" cssClass="help-block"/>
+            </div>
+            <div class="field">
                 <@sf.label path="address">Address</@sf.label>
                 <@sf.input path="address" cssClass="form-control" type="text"/>
                 <@sf.errors path="address" cssClass="help-block"/>

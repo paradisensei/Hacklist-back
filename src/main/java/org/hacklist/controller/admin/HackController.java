@@ -1,6 +1,7 @@
 package org.hacklist.controller.admin;
 
 import org.hacklist.model.Hack;
+import org.hacklist.model.enums.Category;
 import org.hacklist.model.enums.City;
 import org.hacklist.service.HackService;
 import org.hacklist.util.forms.HackForm;
@@ -45,7 +46,7 @@ public class HackController {
     @RequestMapping("/new")
     public String getNewForm(Model model) {
         model.addAttribute("hack", new HackForm());
-        model.addAttribute("cities", City.values());
+        fillModel(model);
         return "hack/new_hack";
     }
 
@@ -53,7 +54,7 @@ public class HackController {
     public String create(@ModelAttribute("hack") @Valid HackForm hackForm,
                          BindingResult result, Model model) {
         if (result.hasErrors()) {
-            model.addAttribute("cities", City.values());
+            fillModel(model);
             return "hack/new_hack";
         }
         Hack hack = hackService.add(toHack(hackForm));
@@ -65,7 +66,7 @@ public class HackController {
         Hack hack = hackService.getOne(id);
         HackForm hackForm = toHackForm(hack);
         model.addAttribute("hack", hackForm);
-        model.addAttribute("cities", City.values());
+        fillModel(model);
         return "hack/update_hack";
     }
 
@@ -73,7 +74,7 @@ public class HackController {
     public String update(@ModelAttribute("hack") @Valid HackForm hackForm,
                          BindingResult result, Model model) {
         if (result.hasErrors()) {
-            model.addAttribute("cities", City.values());
+            fillModel(model);
             return "hack/update_hack";
         }
         Hack hack = hackService.add(toHack(hackForm));
@@ -84,6 +85,11 @@ public class HackController {
     @ResponseBody
     public void delete(@PathVariable("id") Long id) {
         hackService.delete(id);
+    }
+
+    private void fillModel(Model model) {
+        model.addAttribute("cities", City.values());
+        model.addAttribute("categories", Category.values());
     }
 
 }

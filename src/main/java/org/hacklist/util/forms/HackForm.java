@@ -1,5 +1,6 @@
 package org.hacklist.util.forms;
 
+import org.hacklist.model.enums.Category;
 import org.hacklist.model.enums.City;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
@@ -21,6 +22,8 @@ public class HackForm {
     private String title;
 
     private City city;
+
+    private Category category;
 
     @NotBlank(message = BLANK_MESSAGE)
     private String address;
@@ -67,6 +70,14 @@ public class HackForm {
 
     public void setCity(City city) {
         this.city = city;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public String getAddress() {

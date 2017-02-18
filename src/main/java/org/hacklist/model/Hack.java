@@ -1,5 +1,6 @@
 package org.hacklist.model;
 
+import org.hacklist.model.enums.Category;
 import org.hacklist.model.enums.City;
 
 import javax.persistence.*;
@@ -23,6 +24,9 @@ public class Hack implements Serializable {
 
     @Enumerated(EnumType.STRING)
     private City city;
+
+    @Enumerated(EnumType.STRING)
+    private Category category;
 
     private String address;
 
@@ -60,6 +64,14 @@ public class Hack implements Serializable {
 
     public void setCity(City city) {
         this.city = city;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public String getAddress() {
