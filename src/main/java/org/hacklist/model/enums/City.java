@@ -13,9 +13,11 @@ public enum City {
 
     KZN(3, "Казань", "Kazan", "Кзн"),
 
-    EKB(4, "Екатеринбург", "Ekaterinburg", "Екб"),
+    INNO(4, "Иннополис", "Innopolis"),
 
-    NOVOSIB(5, "Новосибирск", "Novosibirsk");
+    EKB(5, "Екатеринбург", "Ekaterinburg", "Екб"),
+
+    NOVOSIB(6, "Новосибирск", "Novosibirsk");
 
     private int priority;
     private String name;
