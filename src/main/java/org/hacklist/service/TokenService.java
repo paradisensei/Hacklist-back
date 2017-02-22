@@ -10,10 +10,9 @@ import org.hacklist.util.socialApi.user.SocialUser;
  */
 public interface TokenService {
 
-    void add(Token token, TokenType type,
-             SocialUser socialUser, User user);
-
     Token get(Long socialId, TokenType type);
+
+    void add(Token token, TokenType type, SocialUser socialUser, User user);
 
     void update(Token oldToken, Token newToken);
 

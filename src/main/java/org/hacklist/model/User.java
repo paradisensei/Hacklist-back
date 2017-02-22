@@ -96,17 +96,4 @@ public class User {
         this.bio = bio;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", clientToken='" + clientToken + '\'' +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", company='" + company + '\'' +
-                ", location='" + location + '\'' +
-                ", bio='" + bio + '\'' +
-                '}';
-    }
-
 }

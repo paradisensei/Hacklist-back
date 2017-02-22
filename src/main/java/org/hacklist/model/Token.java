@@ -35,12 +35,10 @@ public class Token {
     @Column(name = "birth_date")
     private Date date;
 
-    private boolean actual;
-
     @Enumerated(EnumType.STRING)
     private TokenType type;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
@@ -84,14 +82,6 @@ public class Token {
         this.date = date;
     }
 
-    public boolean isActual() {
-        return actual;
-    }
-
-    public void setActual(boolean actual) {
-        this.actual = actual;
-    }
-
     public TokenType getType() {
         return type;
     }
@@ -106,20 +96,6 @@ public class Token {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    @Override
-    public String toString() {
-        return "Token{" +
-                "id=" + id +
-                ", socialId=" + socialId +
-                ", accessToken='" + accessToken + '\'' +
-                ", expiresIn=" + expiresIn +
-                ", date=" + date +
-                ", actual=" + actual +
-                ", type=" + type +
-                ", user=" + user +
-                '}';
     }
 
 }

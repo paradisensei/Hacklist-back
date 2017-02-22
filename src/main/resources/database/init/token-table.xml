@@ -9,10 +9,9 @@
         <createTable tableName="token">
             <column name="id" type="int8"/>
             <column name="social_id" type="int8"/>
-            <column name="access_token" type="varchar(100)"/>
+            <column name="access_token" type="varchar(250)"/>
             <column name="expires_in" type="int"/>
             <column name="birth_date" type="timestamp"/>
-            <column name="actual" type="bool"/>
             <column name="type" type="varchar(20)"/>
             <column name="user_id" type="int8"/>
         </createTable>
@@ -36,8 +35,8 @@
     <changeSet id="4" author="paradisensei">
         <addNotNullConstraint tableName="token" columnName="social_id"/>
         <addNotNullConstraint tableName="token" columnName="access_token"/>
+        <addNotNullConstraint tableName="token" columnName="expires_in"/>
         <addNotNullConstraint tableName="token" columnName="birth_date"/>
-        <addNotNullConstraint tableName="token" columnName="actual"/>
         <addNotNullConstraint tableName="token" columnName="type"/>
         <addNotNullConstraint tableName="token" columnName="user_id"/>
     </changeSet>

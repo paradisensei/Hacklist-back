@@ -37,7 +37,7 @@ public class HackForm {
     private String date;
 
     @NotBlank(message = BLANK_MESSAGE)
-    @Size(min = 1, max = 300, message = "From 1 to 300 symbols")
+    @Size(min = 1, max = 500, message = "From 1 to 300 symbols")
     private String description;
 
     @NotBlank(message = BLANK_MESSAGE)

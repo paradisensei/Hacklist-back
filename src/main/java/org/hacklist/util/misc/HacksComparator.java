@@ -11,28 +11,28 @@ import java.util.Comparator;
 public class HacksComparator {
 
     public static Comparator<Hack> comparator() {
-        return (o1, o2) -> {
-            int res = o1.getCity().getPriority().compareTo(o2.getCity().getPriority());
+        return (h1, h2) -> {
+            int res = h1.getCity().getPriority().compareTo(h2.getCity().getPriority());
             if (res == 0) {
-                res = o1.getDate().compareTo(o2.getDate());
+                res = h1.getDate().compareTo(h2.getDate());
             }
             return res;
         };
     }
 
     public static Comparator<Hack> comparator(String location) {
-        return (o1, o2) -> {
-            boolean o1InUserLocation = hackInUserLocation(o1, location);
-            boolean o2InUserLocation = hackInUserLocation(o2, location);
+        return (h1, h2) -> {
+            boolean h1InUserLocation = hackInUserLocation(h1, location);
+            boolean h2InUserLocation = hackInUserLocation(h2, location);
 
-            if (o1InUserLocation && o2InUserLocation) {
-                return o1.getDate().compareTo(o2.getDate());
-            } else if (o1InUserLocation) {
+            if (h1InUserLocation && h2InUserLocation) {
+                return h1.getDate().compareTo(h2.getDate());
+            } else if (h1InUserLocation) {
                 return -1;
-            } else if (o2InUserLocation) {
+            } else if (h2InUserLocation) {
                 return 1;
             }
-            return comparator().compare(o1, o2);
+            return comparator().compare(h1, h2);
         };
     }
 

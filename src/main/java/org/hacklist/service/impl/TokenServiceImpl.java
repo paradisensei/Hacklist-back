@@ -27,24 +27,22 @@ public class TokenServiceImpl implements TokenService {
     }
 
     @Override
-    public void add(Token token, TokenType type,
-                    SocialUser socialUser, User user) {
+    @Transactional(readOnly = true)
+    public Token get(Long socialId, TokenType type) {
+        return tokenRepository.findBySocialIdAndType(socialId, type);
+    }
+
+    @Override
+    public void add(Token token, TokenType type, SocialUser socialUser, User user) {
         if (type == TokenType.GITHUB) {
             // 30 days in seconds
             token.setExpiresIn(86400 * 30);
         }
         token.setSocialId(socialUser.getId());
         token.setDate(new Date());
-        token.setActual(true);
         token.setType(type);
         token.setUser(user);
         tokenRepository.save(token);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public Token get(Long socialId, TokenType type) {
-        return tokenRepository.findBySocialIdAndType(socialId, type);
     }
 
     @Override

@@ -55,7 +55,7 @@ public class AuthController {
             return "admin/sign_up";
         }
         adminService.add(transformer.apply(authForm));
-        return "redirect:/admin/hacks";
+        return "redirect:/admin/sign_in";
     }
 
 }

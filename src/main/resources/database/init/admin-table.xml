@@ -8,7 +8,7 @@
     <changeSet id="0" author="alishev.neil">
         <createTable tableName="admin">
             <column name="id" type="int8"/>
-            <column name="email" type="varchar(50)"/>
+            <column name="email" type="varchar(30)"/>
             <column name="password" type="varchar(100)"/>
             <column name="status" type="varchar(20)"/>
         </createTable>

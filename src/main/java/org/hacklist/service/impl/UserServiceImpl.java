@@ -23,6 +23,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public User get(String clientToken) {
         return userRepository.findByClientToken(clientToken);
     }

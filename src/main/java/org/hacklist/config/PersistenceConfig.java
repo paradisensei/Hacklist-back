@@ -43,27 +43,18 @@ public class PersistenceConfig implements EnvironmentAware {
         String url = env.getProperty("jdbc.url");
         String user = env.getProperty("jdbc.user");
         String password = env.getProperty("jdbc.password");
-        int minPoolSize = Integer.parseInt(env.getProperty("jdbc.minPoolSize"));
-        int maxPoolSize = Integer.parseInt(env.getProperty("jdbc.maxPoolSize"));
-        int maxStatements = Integer.parseInt(env.getProperty("jdbc.maxStatements"));
-        boolean testConnection = Boolean.parseBoolean(env.getProperty("jdbc.testConnection"));
 
         ComboPooledDataSource dataSource = new ComboPooledDataSource();
         dataSource.setDriverClass(driver);
         dataSource.setJdbcUrl(url);
         dataSource.setUser(user);
         dataSource.setPassword(password);
-        dataSource.setMinPoolSize(minPoolSize);
-        dataSource.setMaxPoolSize(maxPoolSize);
-        dataSource.setMaxStatements(maxStatements);
-        dataSource.setTestConnectionOnCheckin(testConnection);
-        dataSource.setTestConnectionOnCheckout(testConnection);
         return dataSource;
     }
 
     @Bean
     public EntityManagerFactory entityManagerFactory() throws PropertyVetoException, IOException {
-        // Jpa vendor adapter
+        // Jpa persistence provider
         HibernateJpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
         jpaVendorAdapter.setDatabase(Database.POSTGRESQL);
         jpaVendorAdapter.setShowSql(true);
