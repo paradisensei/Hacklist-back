@@ -1,13 +1,15 @@
 $(document).ready(function () {
-    $(document).on('click', '#delete_hack', function () {
-        var hack_id = $('#hack_id').val();
+    $('#delete_hack').on('click', function () {
+        if(confirm("Точно?")) {
+            var hack_id = $(this).data("hack-id");
 
-        $.ajax({
-            url: '/admin/hacks/' + hack_id + '/delete',
-            type: 'post',
-            success: function () {
-                window.location = '/admin/hacks';
-            }
-        });
+            $.ajax({
+                url: '/admin/hacks/' + hack_id + '/delete',
+                type: 'POST',
+                success: function () {
+                    window.location = '/admin/hacks';
+                }
+            });
+        }
     })
 });

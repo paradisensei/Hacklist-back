@@ -1,8 +1,8 @@
 $(document).ready(function () {
-    $(document).on('click', '#flush', function () {
+    $("#flush").on('click', function () {
         $.ajax({
             url: '/admin/flush',
-            type: 'post',
+            type: 'POST',
             success: function () {
                 alert('Cache was successfully flushed');
             }
