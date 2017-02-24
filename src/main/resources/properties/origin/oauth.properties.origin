@@ -6,6 +6,6 @@ gitHub.tokenUrl=https://github.com/login/oauth/access_token
 gitHub.userUrl=https://api.github.com/user?access_token=
 
 # VK
-vk.version=5.62
+vk.version=3.0
 vk.tokenUrl=https://oauth.vk.com/access_token?client_id={}&client_secret={}&redirect_uri=http://{IP}:{PORT}/api/oauth/vk&code=
 vk.userUrl=https://api.vk.com/method/users.get?fields=city,occupation,about&access_token=
