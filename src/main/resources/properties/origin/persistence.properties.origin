@@ -3,10 +3,10 @@ jdbc.driver=org.postgresql.Driver
 jdbc.url=
 jdbc.user=
 jdbc.password=
-jdbc.minPoolSize=0
-jdbc.maxPoolSize=5
-jdbc.maxStatements=10
-jdbc.testConnection=true
+#jdbc.minPoolSize=3
+#jdbc.maxPoolSize=15
+#jdbc.maxStatements=50
+#jdbc.testConnection=true
 
 # hibernate properties
 hibernate.dialect=org.hibernate.dialect.PostgreSQL9Dialect

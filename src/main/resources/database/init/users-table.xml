@@ -8,7 +8,7 @@
     <changeSet id="0" author="paradisensei">
         <createTable tableName="users">
             <column name="id" type="int8"/>
-            <column name="client_token" type="varchar(100)"/>
+            <column name="client_token" type="varchar(250)"/>
             <column name="name" type="varchar(50)"/>
             <column name="email" type="varchar(50)"/>
             <column name="company" type="varchar(50)"/>

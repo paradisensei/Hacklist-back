@@ -13,7 +13,7 @@ public class AuthForm {
     private static final String BLANK_MESSAGE = "This field is mandatory";
 
     @NotBlank(message = BLANK_MESSAGE)
-    @Size(min = 1, max = 50, message = "From 1 to 50 symbols")
+    @Size(min = 1, max = 30, message = "From 1 to 30 symbols")
     @Email
     private String email;
 

@@ -1,4 +1,4 @@
-package org.hacklist.controller;
+package org.hacklist.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 

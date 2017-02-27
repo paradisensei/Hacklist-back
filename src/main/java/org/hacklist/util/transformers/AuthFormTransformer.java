@@ -4,6 +4,7 @@ import org.hacklist.model.Admin;
 import org.hacklist.model.enums.AdminStatus;
 import org.hacklist.util.forms.AuthForm;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.function.Function;
 
@@ -12,7 +13,7 @@ import java.util.function.Function;
  */
 public class AuthFormTransformer implements Function<AuthForm, Admin> {
 
-    private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+    private static final PasswordEncoder encoder = new BCryptPasswordEncoder();
 
     @Override
     public Admin apply(AuthForm authForm) {

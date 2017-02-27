@@ -1,7 +1,7 @@
 package org.hacklist.controller.api;
 
 import com.jayway.awaitility.core.ConditionTimeoutException;
-import org.hacklist.controller.ApiResponse;
+import org.hacklist.dto.ApiResponse;
 import org.hacklist.model.Hack;
 import org.hacklist.service.HackService;
 import org.hacklist.service.UserService;

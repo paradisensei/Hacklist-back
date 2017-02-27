@@ -7,6 +7,5 @@ import org.springframework.security.web.context.AbstractSecurityWebApplicationIn
  * @author Neil Alishev
  */
 @Order(2)
-public class SecurityInitializer
-        extends AbstractSecurityWebApplicationInitializer {
+public class SecurityInitializer extends AbstractSecurityWebApplicationInitializer {
 }

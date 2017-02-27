@@ -15,8 +15,7 @@
         <p><a href="${hack.url}" target="_blank">Url</a></p>
         <a href="/admin/hacks/${hack.id}/update">Update</a>
         <a href="/admin/hacks/">Back</a>
-        <input id="hack_id" type="text" style="display: none" value="${hack.id}">
-        <button type="button" id="delete_hack">Delete</button>
+        <button type="button" id="delete_hack" data-hack-id="${hack.id}">Delete</button>
     </#if>
 </#macro>
 

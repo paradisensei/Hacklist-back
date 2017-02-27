@@ -2,7 +2,7 @@ package org.hacklist.util.socialApi.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.hacklist.util.socialApi.json.City;
+import org.hacklist.model.enums.City;
 import org.hacklist.util.socialApi.json.Occupation;
 
 /**
@@ -11,6 +11,7 @@ import org.hacklist.util.socialApi.json.Occupation;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class VkUser implements SocialUser {
 
+    @JsonProperty("uid")
     private Long id;
 
     @JsonProperty("first_name")
@@ -21,7 +22,7 @@ public class VkUser implements SocialUser {
 
     private Occupation occupation;
 
-    private City city;
+    private int city;
 
     private String about;
 
@@ -63,10 +64,24 @@ public class VkUser implements SocialUser {
 
     @Override
     public String getLocation() {
-        return city != null ? city.getTitle() : null;
+        switch (city) {
+            case 1:
+                return City.MOSCOW.getName();
+            case 2:
+                return City.SPB.getName();
+            case 49:
+                return City.EKB.getName();
+            case 60:
+                return City.KZN.getName();
+            case 99:
+                return City.NOVOSIB.getName();
+            case 5470540:
+                return City.INNO.getName();
+        }
+        return null;
     }
 
-    public void setCity(City city) {
+    public void setCity(int city) {
         this.city = city;
     }
 

@@ -28,7 +28,6 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     @Bean
     public FreeMarkerViewResolver viewResolver() {
         FreeMarkerViewResolver viewResolver = new FreeMarkerViewResolver();
-        viewResolver.setCache(false);
         viewResolver.setPrefix("");
         viewResolver.setSuffix(".ftl");
         viewResolver.setContentType("text/html;charset=UTF-8");

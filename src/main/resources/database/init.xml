@@ -5,6 +5,9 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
 
-    <include file="seeds-changelog/hack-table.xml" relativeToChangelogFile="true"/>
+    <include file="init/hack-table.xml" relativeToChangelogFile="true"/>
+    <include file="init/users-table.xml" relativeToChangelogFile="true"/>
+    <include file="init/token-table.xml" relativeToChangelogFile="true"/>
+    <include file="init/admin-table.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

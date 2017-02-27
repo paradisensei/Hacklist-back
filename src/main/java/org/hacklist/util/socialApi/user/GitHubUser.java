@@ -74,16 +74,4 @@ public class GitHubUser implements SocialUser {
         this.bio = bio;
     }
 
-    @Override
-    public String toString() {
-        return "GitHubUser{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", company='" + company + '\'' +
-                ", location='" + location + '\'' +
-                ", bio='" + bio + '\'' +
-                '}';
-    }
-
 }
