@@ -2,7 +2,7 @@ package org.hacklist.controller.api;
 
 import com.jayway.awaitility.core.ConditionTimeoutException;
 import org.hacklist.dto.ApiResponse;
-import org.hacklist.model.Hack;
+import org.hacklist.dto.Hack;
 import org.hacklist.service.HackService;
 import org.hacklist.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 import static com.jayway.awaitility.Awaitility.await;
 import static com.jayway.awaitility.pollinterval.IterativePollInterval.iterative;
@@ -41,7 +42,8 @@ public class HackController {
                 .until(() -> userService.get(token) != null);
 
         String location = userService.get(token).getLocation();
-        List<Hack> hacks = hackService.getAll(location);
+        List<Hack> hacks = hackService.getAll(location).stream()
+                .map(Hack::new).collect(Collectors.toList());
 
         return new ApiResponse<>(hacks);
     }
