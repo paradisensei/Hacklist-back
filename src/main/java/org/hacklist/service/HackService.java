@@ -2,6 +2,7 @@ package org.hacklist.service;
 
 import org.hacklist.model.Hack;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -16,6 +17,8 @@ public interface HackService {
     Hack getOne(Long id);
 
     Hack add(Hack hack);
+
+    void addAll(Collection<Hack> hacks);
 
     void delete(Long id);
 }

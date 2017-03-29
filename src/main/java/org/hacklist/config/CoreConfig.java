@@ -12,7 +12,8 @@ import org.springframework.web.client.RestTemplate;
 @Configuration
 @EnableScheduling
 @ComponentScan(basePackages = {
-        "org.hacklist.service", "org.hacklist.util", "org.hacklist.task", "org.hacklist.logging"
+        "org.hacklist.service", "org.hacklist.util", "org.hacklist.task",
+        "org.hacklist.logging", "org.hacklist.parser"
 })
 public class CoreConfig {
 

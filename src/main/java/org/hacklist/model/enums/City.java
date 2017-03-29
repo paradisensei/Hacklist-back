@@ -42,4 +42,18 @@ public enum City {
         return synonyms;
     }
 
+    public static City getCity(String syn) {
+        for (City c : values()) {
+            if (c.getName().equalsIgnoreCase(syn)) {
+                return c;
+            }
+            for (String s : c.getSynonyms()) {
+                if (s.equalsIgnoreCase(syn)) {
+                    return c;
+                }
+            }
+        }
+        return null;
+    }
+
 }

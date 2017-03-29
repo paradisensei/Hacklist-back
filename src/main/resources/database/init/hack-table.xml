@@ -8,11 +8,11 @@
     <changeSet id="0" author="paradisensei">
         <createTable tableName="hack">
             <column name="id" type="int8"/>
-            <column name="title" type="varchar(50)"/>
+            <column name="title" type="varchar(150)"/>
             <column name="city" type="varchar(20)"/>
             <column name="category" type="varchar(20)"/>
-            <column name="address" type="varchar(50)"/>
-            <column name="organizer" type="varchar(50)"/>
+            <column name="address" type="varchar(100)"/>
+            <column name="organizer" type="varchar(100)"/>
             <column name="date" type="timestamp"/>
             <column name="description" type="text"/>
             <column name="image_url" type="varchar(250)"/>

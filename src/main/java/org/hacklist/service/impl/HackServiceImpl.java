@@ -12,6 +12,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -62,6 +63,12 @@ public class HackServiceImpl implements HackService {
     @Transactional
     public Hack add(Hack hack) {
         return hackRepository.save(hack);
+    }
+
+    @Override
+    @Transactional
+    public void addAll(Collection<Hack> hacks) {
+        hackRepository.save(hacks);
     }
 
     @Override
