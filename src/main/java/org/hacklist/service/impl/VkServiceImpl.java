@@ -3,10 +3,10 @@ package org.hacklist.service.impl;
 import org.apache.http.client.utils.URIBuilder;
 import org.hacklist.model.Token;
 import org.hacklist.service.VkService;
-import org.hacklist.util.socialApi.user.SocialUser;
-import org.hacklist.util.socialApi.props.VkOAuth;
 import org.hacklist.util.socialApi.json.UserResponse;
+import org.hacklist.util.socialApi.user.SocialUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -19,24 +19,24 @@ import java.net.URISyntaxException;
 @Service
 public class VkServiceImpl implements VkService {
 
-    private final VkOAuth vkOAuth;
+    private final Environment env;
     private final RestTemplate restTemplate;
 
     @Autowired
-    public VkServiceImpl(RestTemplate restTemplate, VkOAuth vkOAuth) {
+    public VkServiceImpl(Environment env, RestTemplate restTemplate) {
+        this.env = env;
         this.restTemplate = restTemplate;
-        this.vkOAuth = vkOAuth;
     }
 
     @Override
     public Token getToken(String code) {
-        URI tokenUrl = getURL(vkOAuth.tokenUrl() + code);
+        URI tokenUrl = getURL(env.getProperty("vk.tokenUrl") + code);
         return restTemplate.getForObject(tokenUrl, Token.class);
     }
 
     @Override
     public SocialUser getUser(Token token) {
-        URI userUrl = getURL(vkOAuth.userUrl() + token.getAccessToken());
+        URI userUrl = getURL(env.getProperty("vk.userUrl") + token.getAccessToken());
         return restTemplate.getForObject(userUrl, UserResponse.class)
                 .getResponse().get(0);
     }
@@ -44,7 +44,7 @@ public class VkServiceImpl implements VkService {
     private URI getURL(String url) {
         try {
             return new URIBuilder(url)
-                    .addParameter("v", vkOAuth.version())
+                    .addParameter("v", env.getProperty("vk.version"))
                     .build();
         } catch (URISyntaxException ignored) {
             return null;

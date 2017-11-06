@@ -8,6 +8,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
@@ -22,63 +23,67 @@ import java.util.Locale;
 
 /**
  * @author Aidar Shaifutdinov.
+ *
+ * Doesn`t work, because the website has been updated
+ * TODO update
  */
 @Component
 public class ItEventsParser implements Parser {
-    private static final String WEBSITE = "http://it-events.com";
-    private static final String STUB_IMAGE = "https://i.ytimg.com/vi/tNJQY1tP5mY/maxresdefault.jpg";
 
-    private Document mainPage;
-    private Elements events;
-    private Collection<Hack> result;
+    @Value("${itevents.url}")
+    private String websiteUrl;
 
-    public ItEventsParser() {
-        try {
-            mainPage = Jsoup.connect(WEBSITE).get();
-        } catch (IOException ignored) {
-        }
-        // event blocks on the main page
-        events = mainPage.getElementsByClass("vevent");
-        result = new LinkedList<>();
-    }
+    @Value("${stub_image}")
+    private String stubImage;
 
     @Override
-    public Collection<Hack> parse() {
+    public Collection<Hack> parse() throws IOException {
+        Document mainPage = Jsoup.connect(websiteUrl).get();
+        // event blocks on the main page
+        Elements events = mainPage.getElementsByClass("vevent");
+        Collection<Hack> result = new LinkedList<>();
         for (Element eventBlock : events) {
-            Document eventPage = goToEventPage(eventBlock);
+            Document eventPage = getEventPage(eventBlock);
 
-            if (eventPage == null)
+            if (eventPage == null) {
                 continue;
+            }
 
             String eventRegistrationUrl = getRegistrationUrl(eventPage);
 
-            if (eventRegistrationUrl == null)
+            if (eventRegistrationUrl == null) {
                 continue;
+            }
 
             String eventTitle = getEventTitle(eventPage);
 
-            if (eventTitle == null)
+            if (eventTitle == null) {
                 continue;
+            }
 
             String eventOrganizer = getEventOrganizer(eventPage);
 
-            if (eventOrganizer == null)
+            if (eventOrganizer == null) {
                 continue;
+            }
 
             // get event city and address
-            Elements adrs = eventPage.select(".adr");
-            if (CollectionUtils.isEmpty(adrs))
+            Elements adr = eventPage.select(".adr");
+            if (CollectionUtils.isEmpty(adr)) {
                 continue;
+            }
 
-            City eventCity = getEventCity(adrs);
+            City eventCity = getEventCity(adr);
 
-            if (eventCity == null)
+            if (eventCity == null) {
                 continue;
+            }
 
-            String eventAddress = getEventAddress(adrs);
+            String eventAddress = getEventAddress(adr);
 
-            if (eventAddress == null)
-                continue;
+            if (eventAddress == null) {
+                eventAddress = "-";
+            }
 
             String eventDescription = getEventDescription(eventPage);
 
@@ -86,38 +91,33 @@ public class ItEventsParser implements Parser {
 
             Date eventDate = getEventDate(eventPage);
 
-            if (eventDate == null)
+            if (eventDate == null) {
                 continue;
+            }
 
-            // hack construction
             Hack hack = new Hack();
-            hack.setUrl(eventRegistrationUrl);
             hack.setTitle(eventTitle);
-            hack.setOrganizer(eventOrganizer);
             hack.setCity(eventCity);
+            hack.setCategory(Category.COMMON);
             hack.setAddress(eventAddress);
+            hack.setOrganizer(eventOrganizer);
+            hack.setDate(eventDate);
             hack.setDescription(eventDescription);
             hack.setImageUrl(eventImage);
-            hack.setDate(eventDate);
-            hack.setCategory(Category.COMMON);
+            hack.setUrl(eventRegistrationUrl);
 
             result.add(hack);
         }
         return result;
     }
 
-    private Document goToEventPage(Element eventBlock) {
+    private Document getEventPage(Element eventBlock) {
         String link = eventBlock.select("a.summary").attr("href");
-        Document eventPage = null;
-
-        // load event page
         try {
-            eventPage = Jsoup.connect(WEBSITE + link).get();
-        } catch (IOException e1) {
-            e1.printStackTrace();
+            return Jsoup.connect(websiteUrl + link).get();
+        } catch (IOException ignored) {
+            return null;
         }
-
-        return eventPage;
     }
 
     private String getRegistrationUrl(Document eventPage) {
@@ -128,101 +128,72 @@ public class ItEventsParser implements Parser {
                 String url = regLink.attr("href");
                 if (url.length() < 250) {
                     return url;
-                } else {
-                    return null;
                 }
-            } else {
-                return null;
             }
-        } else {
-            return null;
         }
+        return null;
     }
 
     private String getEventTitle(Document eventPage) {
         String eventTitle = eventPage.select(".vevent .caption").first().text();
-
-        if (eventTitle.length() > 150)
-            return null;
-
-        return eventTitle;
+        return eventTitle.length() <= 150 ? eventTitle : null;
     }
 
     private String getEventOrganizer(Document eventPage) {
         Elements org = eventPage.select(".organizer span");
-
-        if (CollectionUtils.isEmpty(org))
-            return null;
-
-        String organizer = org.first().text();
-        if (organizer.length() > 100)
-            return null;
-
-        return organizer;
+        if (!CollectionUtils.isEmpty(org)) {
+            String organizer = org.first().text();
+            return organizer.length() <= 100 ? organizer : null;
+        }
+        return null;
     }
 
-    private City getEventCity(Elements adrs) {
-        Element adr = adrs.first();
-        Elements reg = adr.select(".region");
-
-        if (CollectionUtils.isEmpty(reg))
-            return null;
-
-        City city = City.getCity(reg.first().text().split(" , ")[0]);
-        if (city == null)
-            return null;
-
-        return city;
+    private City getEventCity(Elements adr) {
+        Elements reg = adr.first().select(".region");
+        if (!CollectionUtils.isEmpty(reg)) {
+            return City.getCity(reg.first().text().split(" , ")[0]);
+        }
+        return null;
     }
 
-    private String getEventAddress(Elements adrs) {
-        Element adr = adrs.first();
-        Elements str = adr.select(".street-adress");
-        if (CollectionUtils.isEmpty(str))
-            return null;
-
-        String address = str.first().text();
-        if (address.length() > 100)
-            return null;
-
-        return address;
+    private String getEventAddress(Elements adr) {
+        Elements str = adr.first().select(".street-adress");
+        if (!CollectionUtils.isEmpty(str)) {
+            String address = str.first().text();
+            return address.length() <= 100 ? address : null;
+        }
+        return null;
     }
 
     private String getEventDescription(Document eventPage) {
         Element anons = eventPage.select(".anons").first();
-        return anons.select("p").first().text();
+        String description = anons.select("p").first().text();
+        return description != null ? description : "-";
     }
 
     private String getEventImage(Document eventPage) {
         Element anons = eventPage.select(".anons").first();
         Elements img = anons.select("img");
 
-        if (CollectionUtils.isEmpty(img))
-            return STUB_IMAGE;
-
-        String imageUrl = WEBSITE + img.first().attr("src");
-
-        if (imageUrl.length() >= 250)
-            return STUB_IMAGE;
-
-        return WEBSITE + img.first().attr("src");
+        if (!CollectionUtils.isEmpty(img)) {
+            String imageUrl = websiteUrl + img.first().attr("src");
+            return imageUrl.length() <= 250 ? imageUrl : stubImage;
+        }
+        return stubImage;
     }
 
     private Date getEventDate(Document eventPage) {
-        String eventDate = eventPage
-                .select("#event_end_date")
-                .first()
-                .text()
+        String eventDate = eventPage.select("#event_end_date").first().text()
                 .replaceAll("\\(.+\\), ", "");
 
-        DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy HH:mm", new Locale("ru"));
-        Date date = null;
+        DateFormat dateFormat = new SimpleDateFormat(
+                "dd MMMM yyyy HH:mm", new Locale("ru"));
 
         try {
-            date = dateFormat.parse(eventDate);
+            return dateFormat.parse(eventDate);
         } catch (ParseException ignored) {
+            return null;
         }
-
-        return date;
     }
+
 }
